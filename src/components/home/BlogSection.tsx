@@ -6,15 +6,20 @@ import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 
 export default async function BlogSection() {
-  const articles = await prisma.article.findMany({
-    where: {
-      published: true,
-    },
-    orderBy: {
-      createdAt: 'desc'
-    },
-    take: 3
-  });
+  let articles: any[] = [];
+  try {
+    articles = await prisma.article.findMany({
+      where: {
+        published: true,
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      take: 3
+    });
+  } catch (e) {
+    articles = [];
+  }
 
   return (
     <section className="section-padding" style={{ backgroundColor: "#ffffff" }} id="blog">

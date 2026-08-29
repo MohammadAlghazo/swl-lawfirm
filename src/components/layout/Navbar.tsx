@@ -53,8 +53,8 @@ export default function Navbar() {
               href="/"
               className="flex-shrink-0 transition-opacity duration-300 hover:opacity-85 block"
               style={{
-                width: "280px",
-                height: "80px",
+                width: "180px",
+                height: "70px",
                 overflow: "hidden",
                 display: "flex",
                 alignItems: "center",
@@ -72,15 +72,14 @@ export default function Navbar() {
                 style={{
                   width: "100%",
                   height: "100%",
-                  transform: isTransparent ? "scale(2.4)" : "scale(2.2)",
-
+                  transform: isTransparent ? "scale(1.8)" : "scale(1.6)",
                   filter: "brightness(0) invert(1) drop-shadow(0px 2px 4px rgba(0,0,0,0.3))"
                 }}
               />
             </Link>
 
             {/* ── DESKTOP LINKS ── */}
-            <div className="hidden lg:flex items-center gap-0.5">
+            <div className="hidden lg:flex items-center gap-0">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (

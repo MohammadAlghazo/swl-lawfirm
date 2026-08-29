@@ -95,7 +95,7 @@ export default function HeroSection() {
             className="text-xs font-medium"
             style={{ color: "#C9A96E", fontFamily: "Cairo, sans-serif" }}
           >
-            شركة سمو الحكمة للمحاماة والاستشارات القانونية
+          شركة سمو الحكمة للمحاماة
           </span>
         </div>
 
@@ -188,7 +188,7 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+      <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center gap-2 animate-bounce pointer-events-none">
         <div
           className="w-5 h-8 rounded-full border-2 flex items-start justify-center pt-1.5"
           style={{ borderColor: "rgba(176,141,87,0.6)" }}
