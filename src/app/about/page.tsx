@@ -38,9 +38,8 @@ export default function AboutPage() {
           <span className="inline-block text-[#B08D57] text-sm font-semibold tracking-widest uppercase mb-6 border border-[#B08D57]/30 px-4 py-2 rounded-full">
             تعرف علينا
           </span>
-          <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-loose">
-            شركة سمو الحكمة للمحاماة
-            <br />
+          <h1 className="text-3xl md:text-5xl font-bold mb-6 flex flex-col gap-4">
+            <span>شركة سمو الحكمة للمحاماة</span>
             <span className="text-[#B08D57]">والاستشارات القانونية</span>
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">

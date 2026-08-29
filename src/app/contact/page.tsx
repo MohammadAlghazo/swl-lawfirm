@@ -100,7 +100,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-1">المقر الرئيسي</p>
-                    <p className="font-bold leading-relaxed">المملكة العربية السعودية،<br/>(سيتم إضافة العنوان التفصيلي)</p>
+                    <p className="font-bold leading-relaxed">المملكة العربية السعودية</p>
                   </div>
                 </div>
               </div>
