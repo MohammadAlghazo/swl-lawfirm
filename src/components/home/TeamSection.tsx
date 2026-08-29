@@ -1,28 +1,29 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { User, ArrowLeft } from "lucide-react";
 
 const teamMembers = [
   {
     name: "عبدالعزيز مرزوق السهلي",
     position: "رئيس مجلس الإدارة",
-    initials: "ع.م",
+    image: "/images/team/abdulaziz-alsahli.png",
   },
   {
     name: "ريان عيسى السهلي",
     position: "شريك مؤسس",
-    initials: "ر.ع",
+    image: "/images/team/rayan.png",
   },
   {
     name: "عبدالعزيز عبدالمحسن الحجيلي",
     position: "شريك مؤسس",
-    initials: "ع.ع",
+    image: "/images/team/abdulaziz-alhujaili.png",
   },
   {
     name: "تركي الحجاجي",
     position: "شريك مهني",
-    initials: "ت.ح",
+    image: "/images/team/turki.png",
   },
 ];
 
@@ -69,21 +70,25 @@ export default function TeamSection() {
               }}
             >
               {/* Avatar */}
-              <div className="mx-auto mb-5 relative">
+              <div className="mx-auto mb-5 relative w-24 h-24">
                 <div
-                  className="w-20 h-20 rounded-full mx-auto flex items-center justify-center text-2xl font-bold"
+                  className="w-24 h-24 rounded-full mx-auto overflow-hidden relative bg-gray-100"
                   style={{
-                    background: "linear-gradient(135deg, #1B2B4B, #243660)",
-                    color: "#B08D57",
-                    fontFamily: "Cairo, sans-serif",
                     border: "3px solid rgba(176, 141, 87, 0.3)",
                   }}
                 >
-                  {member.initials}
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    unoptimized={true}
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                  />
                 </div>
                 {/* Gold accent ring */}
                 <div
-                  className="absolute inset-0 w-20 h-20 rounded-full mx-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 w-24 h-24 rounded-full mx-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   style={{ border: "2px solid #B08D57", margin: "-2px" }}
                 />
               </div>
@@ -114,7 +119,7 @@ export default function TeamSection() {
         {/* CTA */}
         <div className="text-center">
           <Link href="/team" className="btn-navy-outline">
-            <span>تعرف على الفريق كاملاً</span>
+            <span>تعرف أكثر على فريق العمل</span>
             <ArrowLeft size={18} />
           </Link>
         </div>

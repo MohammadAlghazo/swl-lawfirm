@@ -34,7 +34,7 @@ export default function Footer() {
   return (
     <footer style={{ backgroundColor: "#0F1A2E", color: "#ffffff" }}>
       {/* Main Footer */}
-      <div className="container-custom py-16">
+      <div className="container mx-auto px-4 md:px-8 pt-32 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Column 1: About */}
           <div className="lg:col-span-1">
@@ -284,7 +284,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div style={{ borderTop: "1px solid rgba(176, 141, 87, 0.15)", backgroundColor: "rgba(0,0,0,0.2)" }}>
-        <div className="container-custom py-4">
+        <div className="container mx-auto px-4 md:px-8 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <p
               className="text-xs text-center md:text-right"
