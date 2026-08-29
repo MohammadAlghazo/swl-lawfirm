@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    // Allow all local images from /public folder
+    formats: ["image/webp", "image/avif"],
+    // Domain whitelist for future external images
+    remotePatterns: [],
+  },
+};
 
 export default nextConfig;
