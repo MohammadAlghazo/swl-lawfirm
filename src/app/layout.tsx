@@ -13,11 +13,6 @@ const cairo = Cairo({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.swl-lawfirm.com.sa"),
-  icons: {
-    icon: "/favicon.jpg",
-    shortcut: "/favicon.jpg",
-    apple: "/favicon.jpg",
-  },
   title: {
     default: "شركة سمو الحكمة للمحاماة والاستشارات القانونية",
     template: "%s | سمو الحكمة",
