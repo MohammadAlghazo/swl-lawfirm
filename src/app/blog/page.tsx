@@ -4,7 +4,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata = {
   title: "المركز الإعلامي والمقالات",

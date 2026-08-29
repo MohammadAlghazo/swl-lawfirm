@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const article = await prisma.article.findUnique({

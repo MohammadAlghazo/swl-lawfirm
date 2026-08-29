@@ -1,3 +1,5 @@
+export const revalidate = 3600; // Cache for 1 hour
+
 import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
 import StatsBar from "@/components/home/StatsBar";
