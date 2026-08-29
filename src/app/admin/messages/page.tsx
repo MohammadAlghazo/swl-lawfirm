@@ -45,13 +45,13 @@ export default async function AdminMessagesPage() {
                       {msg.name}
                     </td>
                     <td className="py-4 px-6 font-medium" dir="ltr">
-                      <a href={`tel:${msg.phone}`} className="text-gold hover:underline">
+                      <a href={`tel:${msg.phone}`} className="text-[#1B2B4B] font-bold hover:underline">
                         {msg.phone}
                       </a>
                     </td>
                     <td className="py-4 px-6">
                       {msg.email ? (
-                        <a href={`mailto:${msg.email}`} className="text-gray-500 hover:text-gold transition-colors">
+                        <a href={`mailto:${msg.email}`} className="text-gray-500 hover:text-[#1B2B4B] transition-colors">
                           {msg.email}
                         </a>
                       ) : (
