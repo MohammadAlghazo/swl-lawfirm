@@ -53,7 +53,7 @@ export default function Navbar() {
               href="/"
               className="flex-shrink-0 transition-opacity duration-300 hover:opacity-85 block"
               style={{
-                width: "180px",
+                width: "260px",
                 height: "70px",
                 overflow: "hidden",
                 display: "flex",
@@ -72,7 +72,7 @@ export default function Navbar() {
                 style={{
                   width: "100%",
                   height: "100%",
-                  transform: isTransparent ? "scale(1.8)" : "scale(1.6)",
+                  transform: isTransparent ? "scale(2.5)" : "scale(2.3)",
                   filter: "brightness(0) invert(1) drop-shadow(0px 2px 4px rgba(0,0,0,0.3))"
                 }}
               />

@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -36,10 +38,10 @@ export default function AboutPage() {
           <span className="inline-block text-[#B08D57] text-sm font-semibold tracking-widest uppercase mb-6 border border-[#B08D57]/30 px-4 py-2 rounded-full">
             تعرف علينا
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            شركة سمو الحكمة
+          <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-loose">
+            شركة سمو الحكمة للمحاماة
             <br />
-            <span className="text-[#B08D57]">للمحاماة والاستشارات القانونية</span>
+            <span className="text-[#B08D57]">والاستشارات القانونية</span>
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
             منظومة مهنية متكاملة من الخدمات القانونية للأفراد وقطاع الأعمال، انطلاقاً من فهم دقيق للأنظمة وإدراك لطبيعة المصالح والتحديات المرتبطة بكل ملف.
@@ -52,10 +54,15 @@ export default function AboutPage() {
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-            {/* Image placeholder (will be replaced with real image) */}
+            {/* Image - شخص مع ميزان ذهبي */}
             <div className="relative order-2 lg:order-1">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] bg-gradient-to-br from-[#1B2B4B] to-[#243660] flex items-center justify-center">
-                <Scale className="w-32 h-32 text-[#B08D57] opacity-20" />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[3/4] bg-[#f0ece4]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/about-scales.jpg"
+                  alt="محامٍ وميزان العدالة - سمو الحكمة للمحاماة"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 border-2 border-[#B08D57]/30 rounded-2xl -z-10" />
               <div className="absolute -top-6 -left-6 w-20 h-20 bg-[#B08D57]/10 rounded-xl -z-10" />
@@ -211,8 +218,14 @@ export default function AboutPage() {
             </div>
 
             <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] bg-gradient-to-br from-[#1B2B4B] to-[#243660] flex items-center justify-center">
-                <Scale className="w-32 h-32 text-[#B08D57] opacity-20" />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/about-meeting.jpg"
+                  alt="اجتماع فريق قانوني - سمو الحكمة"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1B2B4B]/30 to-transparent" />
               </div>
               <div className="absolute -bottom-8 -right-4 bg-[#B08D57] text-white p-5 rounded-xl shadow-xl max-w-[240px]">
                 <p className="text-sm font-bold leading-relaxed">
@@ -230,8 +243,14 @@ export default function AboutPage() {
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] bg-gradient-to-br from-[#1B2B4B] to-[#243660] flex items-center justify-center">
-                <Scale className="w-32 h-32 text-[#B08D57] opacity-20" />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/about-handshake.jpg"
+                  alt="مصافحة الثقة والالتزام - سمو الحكمة للمحاماة"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1B2B4B]/40 to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#1B2B4B]/90 text-white px-5 py-3 rounded-xl border border-[#B08D57]/20 z-10">
                   <p className="text-xs text-[#B08D57] mb-0.5">شعارنا</p>
                   <p className="text-sm font-bold">لكل ملف مسار واضح</p>

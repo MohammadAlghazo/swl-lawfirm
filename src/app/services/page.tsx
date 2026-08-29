@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import Link from "next/link";
 import { Scale, Building2, Users, FileText, CheckCircle2, Shield, Gavel, Briefcase, FileSignature, Handshake, ScrollText, Landmark, HeartHandshake } from "lucide-react";
 
