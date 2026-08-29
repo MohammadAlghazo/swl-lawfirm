@@ -86,7 +86,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="relative px-4 py-2.5 text-sm font-medium rounded transition-all duration-300"
+                    className="relative px-2 xl:px-4 py-2.5 text-sm font-medium rounded transition-all duration-300"
                     style={{
                       color: isActive ? "#C9A96E" : "rgba(255,255,255,0.88)",
                       fontFamily: "Cairo, sans-serif",
@@ -116,7 +116,7 @@ export default function Navbar() {
             </div>
 
             {/* ── CTA + PHONE ── */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-2 xl:gap-4">
               <a
                 href="tel:+966544406986"
                 dir="ltr"
@@ -133,7 +133,7 @@ export default function Navbar() {
                 <Phone size={13} />
                 +966 54 440 6986
               </a>
-              <Link href="/contact" className="btn-gold text-sm px-6 py-2.5">
+              <Link href="/contact" className="btn-gold text-xs xl:text-sm px-4 xl:px-6 py-2.5">
                 اطلب استشارة
               </Link>
             </div>
