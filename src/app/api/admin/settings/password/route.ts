@@ -20,7 +20,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "يجب أن تتكون كلمة المرور الجديدة من 6 أحرف على الأقل" }, { status: 400 });
     }
 
-    // Get current user from DB
     const admin = await prisma.adminUser.findUnique({
       where: { email: session.email as string },
     });
@@ -29,16 +28,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "المستخدم غير موجود" }, { status: 404 });
     }
 
-    // Verify current password
     const isPasswordValid = await bcrypt.compare(currentPassword, admin.password);
     if (!isPasswordValid) {
       return NextResponse.json({ error: "كلمة المرور الحالية غير صحيحة" }, { status: 400 });
     }
 
-    // Hash new password
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update password in DB
     await prisma.adminUser.update({
       where: { id: admin.id },
       data: { password: hashedNewPassword },

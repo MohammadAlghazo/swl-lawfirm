@@ -6,14 +6,13 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Save, Loader2, Image as ImageIcon } from "lucide-react";
 import "react-quill/dist/quill.snow.css";
 
-// Dynamic import for ReactQuill to prevent SSR issues
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function ArticleEditor({ initialData }: { initialData?: any }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
   const [formData, setFormData] = useState({
     title: initialData?.title || "",
     slug: initialData?.slug || "",
@@ -142,7 +141,7 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
           <div className="space-y-6">
             <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
               <h3 className="font-bold text-navy mb-4">نشر المقال</h3>
-              
+
               <div className="mb-6">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input
@@ -173,7 +172,7 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
 
             <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
               <h3 className="font-bold text-navy mb-4">صورة المقال</h3>
-              
+
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm text-gray-700 mb-2">رابط الصورة (URL)</label>
@@ -192,7 +191,7 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
                   </div>
                   <p className="text-xs text-gray-500 mt-2">مؤقتاً، يرجى إدخال رابط صورة مباشرة</p>
                 </div>
-                
+
                 {formData.coverImage && (
                   <div className="mt-4 rounded-lg overflow-hidden border border-gray-200 aspect-video relative bg-gray-200">
                     {/* eslint-disable-next-line @next/next/no-img-element */}

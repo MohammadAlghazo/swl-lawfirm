@@ -73,7 +73,7 @@ export default function Navbar() {
                   width: "100%",
                   height: "100%",
                   transform: isTransparent ? "scale(2.4)" : "scale(2.2)",
-                  // Turn the entire logo pure white for a crisp, professional look on the dark navbar
+
                   filter: "brightness(0) invert(1) drop-shadow(0px 2px 4px rgba(0,0,0,0.3))"
                 }}
               />

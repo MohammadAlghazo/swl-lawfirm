@@ -32,7 +32,6 @@ export default function AdminLogin() {
         throw new Error(data.error || "حدث خطأ أثناء تسجيل الدخول");
       }
 
-      // Redirect to dashboard on success
       router.push("/admin");
       router.refresh();
     } catch (err: any) {

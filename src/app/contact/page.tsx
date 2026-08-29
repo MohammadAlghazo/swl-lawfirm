@@ -16,7 +16,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%),linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%)] bg-[length:20px_20px] bg-[position:0_0,10px_10px]"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">دعنا نحمي مصالحك القانونية</h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
@@ -28,10 +28,10 @@ export default function ContactPage() {
       {/* Main Content */}
       <section className="container mx-auto px-4 -mt-10 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          
+
           {/* Contact Info Sidebar */}
           <div className="lg:col-span-5 space-y-8">
-            
+
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
               <h2 className="text-2xl font-bold text-navy mb-6">لماذا تتواصل معنا؟</h2>
               <ul className="space-y-4">
@@ -58,9 +58,9 @@ export default function ContactPage() {
 
             <div className="bg-navy text-white rounded-2xl shadow-lg p-8 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gold rounded-bl-full opacity-10 group-hover:scale-110 transition-transform duration-500"></div>
-              
+
               <h2 className="text-2xl font-bold mb-8 relative z-10">معلومات الاتصال المباشر</h2>
-              
+
               <div className="space-y-6 relative z-10">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-navy-light rounded-xl flex items-center justify-center flex-shrink-0 border border-navy-light/50">

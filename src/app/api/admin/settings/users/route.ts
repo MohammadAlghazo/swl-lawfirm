@@ -20,7 +20,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل" }, { status: 400 });
     }
 
-    // Check if user already exists
     const existingUser = await prisma.adminUser.findUnique({
       where: { email },
     });
@@ -29,10 +28,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "البريد الإلكتروني مستخدم بالفعل لحساب آخر" }, { status: 400 });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
     await prisma.adminUser.create({
       data: {
         email,

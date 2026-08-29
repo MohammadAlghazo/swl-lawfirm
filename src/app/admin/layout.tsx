@@ -21,7 +21,6 @@ export default function AdminLayout({
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Don't show sidebar on login page
   if (pathname === "/admin/login") {
     return <>{children}</>;
   }
@@ -56,7 +55,7 @@ export default function AdminLayout({
           {menuItems.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             const Icon = item.icon;
-            
+
             return (
               <Link
                 key={item.name}

@@ -7,7 +7,7 @@ export default function CreateAdminForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,14 +53,14 @@ export default function CreateAdminForm() {
           <p className="text-sm text-gray-500">إنشاء حساب جديد بصلاحيات إدارة كاملة</p>
         </div>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="p-6 space-y-4">
         {error && (
           <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100 font-medium">
             {error}
           </div>
         )}
-        
+
         {success && (
           <div className="p-4 bg-green-50 text-green-600 rounded-lg text-sm border border-green-100 font-medium">
             {success}

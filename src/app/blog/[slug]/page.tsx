@@ -29,7 +29,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
     notFound();
   }
 
-  // Fetch recent articles for the sidebar
   const recentArticles = await prisma.article.findMany({
     where: { 
       published: true,
@@ -43,7 +42,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
     <div className="bg-cream min-h-screen pt-32 pb-20">
       <div className="container-custom">
         <div className="flex flex-col lg:flex-row gap-12">
-          
+
           {/* Main Article Content */}
           <article className="lg:w-2/3 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             {article.coverImage && (
@@ -57,7 +56,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 />
               </div>
             )}
-            
+
             <div className="p-8 md:p-12">
               <div className="flex items-center text-sm text-gray-500 mb-6 gap-3">
                 <div className="bg-gold/10 text-gold-dark px-3 py-1 rounded-full font-bold">
@@ -95,7 +94,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               </div>
             </div>
           </article>
-          
+
           {/* Sidebar */}
           <aside className="lg:w-1/3 space-y-8">
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -103,7 +102,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 مقالات ذات صلة
                 <span className="absolute bottom-0 right-0 w-12 h-1 bg-gold rounded-full"></span>
               </h3>
-              
+
               <div className="space-y-6">
                 {recentArticles.length > 0 ? (
                   recentArticles.map((recent) => (
@@ -134,11 +133,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 )}
               </div>
             </div>
-            
+
             <div className="bg-navy rounded-2xl p-8 text-white relative overflow-hidden">
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/20 rounded-full blur-2xl"></div>
               <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gold/20 rounded-full blur-2xl"></div>
-              
+
               <div className="relative z-10 text-center">
                 <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
@@ -153,7 +152,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               </div>
             </div>
           </aside>
-          
+
         </div>
       </div>
     </div>

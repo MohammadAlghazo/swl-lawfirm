@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { Resend } from 'resend';
 
-// Initialize Resend with the API key from environment variables
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
@@ -10,7 +9,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, phone, email, message } = body;
 
-    // 1. Basic Validation
     if (!name || !phone || !message) {
       return NextResponse.json(
         { error: 'يرجى تعبئة جميع الحقول المطلوبة (الاسم، الجوال، الرسالة)' },
@@ -18,7 +16,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Save to Database using Prisma
     const newContactMessage = await prisma.contactMessage.create({
       data: {
         name,
@@ -28,8 +25,6 @@ export async function POST(request: Request) {
       },
     });
 
-    // 3. Send Email using Resend
-    // (If the API key is missing or invalid, we catch the error but still return success for the DB save)
     try {
       await resend.emails.send({
         from: 'Contact Form <onboarding@resend.dev>', // Resend provides a testing domain
@@ -51,10 +46,9 @@ export async function POST(request: Request) {
       });
     } catch (emailError) {
       console.error('Failed to send email:', emailError);
-      // We don't throw here because we still saved it to the DB successfully.
+
     }
 
-    // 4. Return success response
     return NextResponse.json(
       { success: true, message: 'تم إرسال رسالتك بنجاح. سنتواصل معك قريباً!' },
       { status: 201 }

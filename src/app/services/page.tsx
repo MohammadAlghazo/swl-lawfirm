@@ -6,7 +6,6 @@ export const metadata = {
   description: "نقدم منظومة متكاملة من الخدمات القانونية للشركات والأفراد تلبي كافة الاحتياجات بأعلى معايير الجودة.",
 };
 
-// Data for Integrated Legal System
 const integratedServices = [
   "الاستشارات والمساندة القانونية",
   "التقاضي والتمثيل القضائي",
@@ -22,7 +21,6 @@ const integratedServices = [
   "الامتثال والتراخيص والإجراءات التنظيمية"
 ];
 
-// Data for Corporate Services
 const corporateServices = [
   "تأسيس الشركات والاستثمار",
   "الحوكمة والامتثال",
@@ -42,7 +40,6 @@ const corporateServices = [
   "صياغة السياسات الداخلية للمنشأة"
 ];
 
-// Data for Individual Services
 const individualServices = [
   {
     title: "التمثيل القضائي والتنفيذ",
@@ -128,7 +125,7 @@ export default function ServicesPage() {
             {/* Background Pattern */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-navy/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
-            
+
             <div className="relative z-10 text-center mb-10 md:mb-16">
               <Building2 className="w-12 h-12 md:w-16 md:h-16 text-gold mx-auto mb-4 md:mb-6 opacity-80" />
               <h2 className="text-2xl md:text-4xl font-bold text-navy mb-3 md:mb-4">خدمات الشركات والجهات غير الربحية</h2>

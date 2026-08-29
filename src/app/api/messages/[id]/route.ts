@@ -7,7 +7,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Only authenticated users can delete messages
+
     const session = await getSession();
     if (!session) {
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
@@ -15,7 +15,6 @@ export async function DELETE(
 
     const messageId = params.id;
 
-    // Check if message exists
     const existingMessage = await prisma.contactMessage.findUnique({
       where: { id: messageId }
     });
@@ -24,7 +23,6 @@ export async function DELETE(
       return NextResponse.json({ error: "الرسالة غير موجودة" }, { status: 404 });
     }
 
-    // Delete the message
     await prisma.contactMessage.delete({
       where: { id: messageId }
     });

@@ -6,7 +6,7 @@ import DeleteMessageButton from "@/components/admin/DeleteMessageButton";
 export const dynamic = "force-dynamic";
 
 export default async function AdminMessagesPage() {
-  // Fetch messages from database, ordered by newest first
+
   const messages = await prisma.contactMessage.findMany({
     orderBy: {
       createdAt: 'desc'

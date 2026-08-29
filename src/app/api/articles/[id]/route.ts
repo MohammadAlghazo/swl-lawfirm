@@ -41,7 +41,6 @@ export async function PUT(
       return NextResponse.json({ error: "يرجى تعبئة جميع الحقول المطلوبة" }, { status: 400 });
     }
 
-    // Check if slug exists but belongs to a different article
     const existingArticle = await prisma.article.findUnique({
       where: { slug }
     });
@@ -50,7 +49,6 @@ export async function PUT(
       return NextResponse.json({ error: "رابط المقال (Slug) مستخدم لمقال آخر، يرجى تغييره" }, { status: 400 });
     }
 
-    // Update the article
     const updatedArticle = await prisma.article.update({
       where: { id: articleId },
       data: {

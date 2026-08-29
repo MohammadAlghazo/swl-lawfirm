@@ -4,7 +4,7 @@ import { getSession } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
-    // Only authenticated users can create articles
+
     const session = await getSession();
     if (!session) {
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
@@ -16,7 +16,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "يرجى تعبئة جميع الحقول المطلوبة" }, { status: 400 });
     }
 
-    // Check if slug already exists
     const existingArticle = await prisma.article.findUnique({
       where: { slug }
     });
@@ -25,7 +24,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "رابط المقال (Slug) موجود مسبقاً، يرجى تغييره" }, { status: 400 });
     }
 
-    // Create the article
     const article = await prisma.article.create({
       data: {
         title,

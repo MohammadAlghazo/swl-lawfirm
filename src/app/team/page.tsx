@@ -46,7 +46,7 @@ export default function TeamPage() {
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%),linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%)] bg-[length:20px_20px] bg-[position:0_0,10px_10px]"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">فريق العمل</h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
@@ -57,7 +57,7 @@ export default function TeamPage() {
 
       {/* Team Members List */}
       <section className="container mx-auto px-4 mt-20 relative z-20">
-        
+
         <div className="max-w-5xl mx-auto space-y-16">
           {teamMembers.map((member, index) => {
             const isEven = index % 2 === 0;
@@ -87,7 +87,7 @@ export default function TeamPage() {
                 <div className="w-full md:w-2/3 p-8 md:p-12">
                   <h2 className="text-3xl font-bold text-navy mb-2">{member.name}</h2>
                   <p className="text-lg font-bold text-gold mb-6">{member.role}</p>
-                  
+
                   <div className="space-y-4">
                     {member.description.split('\n\n').map((paragraph, i) => (
                       <p key={i} className="text-gray-600 leading-relaxed text-justify">
