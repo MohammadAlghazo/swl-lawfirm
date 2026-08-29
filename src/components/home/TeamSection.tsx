@@ -50,10 +50,10 @@ export default function TeamSection() {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {teamMembers.map((member) => (
+          {teamMembers.map((member, index) => (
             <div
               key={member.name}
-              className="group text-center p-6 rounded-lg transition-all duration-300"
+              className={`group text-center p-6 rounded-lg transition-all duration-300 ${index !== 0 ? 'hidden sm:block' : ''}`}
               style={{
                 backgroundColor: "#ffffff",
                 border: "1px solid rgba(176, 141, 87, 0.12)",

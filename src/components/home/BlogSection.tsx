@@ -1,39 +1,23 @@
-"use client";
-
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, ArrowLeft, Newspaper } from "lucide-react";
+import prisma from "@/lib/prisma";
+import { format } from "date-fns";
+import { ar } from "date-fns/locale";
 
-// Placeholder articles until DB is connected
-const placeholderArticles = [
-  {
-    id: 1,
-    title: "أهمية صياغة العقود التجارية وحماية حقوق الأطراف",
-    summary: "تعرف على أبرز الأخطاء الشائعة في صياغة العقود التجارية وكيف تحمي نفسك قانونياً",
-    date: "15 أغسطس 2025",
-    slug: "commercial-contracts",
-    category: "العقود القانونية",
-  },
-  {
-    id: 2,
-    title: "حقوق العمال وأصحاب العمل في نظام العمل السعودي",
-    summary: "دليل شامل لفهم حقوقك والتزاماتك وفق نظام العمل في المملكة العربية السعودية",
-    date: "10 أغسطس 2025",
-    slug: "labor-law-rights",
-    category: "قانون العمل",
-  },
-  {
-    id: 3,
-    title: "التحكيم التجاري بديلاً فعالاً عن التقاضي التقليدي",
-    summary: "مزايا التحكيم في تسوية النزاعات التجارية وأثره في توفير الوقت والتكاليف",
-    date: "5 أغسطس 2025",
-    slug: "commercial-arbitration",
-    category: "التحكيم والوساطة",
-  },
-];
+export default async function BlogSection() {
+  const articles = await prisma.article.findMany({
+    where: {
+      published: true,
+    },
+    orderBy: {
+      createdAt: 'desc'
+    },
+    take: 3
+  });
 
-export default function BlogSection() {
   return (
-    <section className="section-padding" style={{ backgroundColor: "#ffffff" }}>
+    <section className="section-padding" style={{ backgroundColor: "#ffffff" }} id="blog">
       <div className="container-custom">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -54,83 +38,84 @@ export default function BlogSection() {
           </Link>
         </div>
 
-        {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {placeholderArticles.map((article) => (
-            <article
-              key={article.id}
-              className="group rounded-lg overflow-hidden transition-all duration-300"
-              style={{
-                backgroundColor: "#ffffff",
-                border: "1px solid rgba(27, 43, 75, 0.1)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 48px rgba(27, 43, 75, 0.1)";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(176, 141, 87, 0.3)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(27, 43, 75, 0.1)";
-              }}
-            >
-              {/* Image placeholder */}
-              <div
-                className="h-48 flex items-center justify-center relative overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #1B2B4B, #243660)" }}
+        {articles.length === 0 ? (
+          <div className="text-center py-12 text-gray-500 bg-gray-50 rounded-2xl border border-gray-100">
+            لا توجد مقالات منشورة حتى الآن.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            {articles.map((article) => (
+              <Link
+                href={`/blog/${article.slug}`}
+                key={article.id}
+                className="group rounded-lg overflow-hidden transition-all duration-300 block"
+                style={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid rgba(27, 43, 75, 0.1)",
+                }}
               >
-                <Newspaper size={40} style={{ color: "rgba(176, 141, 87, 0.4)" }} />
-                {/* Category badge */}
-                <span
-                  className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold"
-                  style={{ backgroundColor: "rgba(176, 141, 87, 0.2)", color: "#B08D57", fontFamily: "Cairo, sans-serif" }}
+                <div
+                  className="h-48 flex items-center justify-center relative overflow-hidden"
+                  style={{ background: "linear-gradient(135deg, #1B2B4B, #243660)" }}
                 >
-                  {article.category}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                {/* Date */}
-                <div className="flex items-center gap-2 mb-3">
-                  <Calendar size={14} style={{ color: "#B08D57" }} />
-                  <span className="text-xs" style={{ color: "#9CA3AF", fontFamily: "Cairo, sans-serif" }}>
-                    {article.date}
+                  {article.coverImage ? (
+                    <Image
+                      src={article.coverImage}
+                      alt={article.title}
+                      fill
+                      unoptimized
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <Newspaper size={40} style={{ color: "rgba(176, 141, 87, 0.4)" }} />
+                  )}
+                  <span
+                    className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm bg-white/10"
+                    style={{ color: "#ffffff", fontFamily: "Cairo, sans-serif", border: "1px solid rgba(255,255,255,0.2)" }}
+                  >
+                    مقال قانوني
                   </span>
                 </div>
 
-                {/* Title */}
-                <h3
-                  className="font-bold text-base mb-3 leading-snug line-clamp-2"
-                  style={{ color: "#1B2B4B", fontFamily: "Cairo, sans-serif" }}
-                >
-                  {article.title}
-                </h3>
+                {/* Content */}
+                <div className="p-6">
+                  {/* Date */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <Calendar size={14} style={{ color: "#B08D57" }} />
+                    <span className="text-xs" style={{ color: "#9CA3AF", fontFamily: "Cairo, sans-serif" }}>
+                      {format(new Date(article.createdAt), 'dd MMMM yyyy', { locale: ar })}
+                    </span>
+                  </div>
 
-                {/* Summary */}
-                <p
-                  className="text-sm mb-5 line-clamp-2 leading-relaxed"
-                  style={{ color: "#6B7280", fontFamily: "Cairo, sans-serif" }}
-                >
-                  {article.summary}
-                </p>
+                  {/* Title */}
+                  <h3
+                    className="font-bold text-base mb-3 leading-snug line-clamp-2 group-hover:text-gold transition-colors"
+                    style={{ color: "#1B2B4B", fontFamily: "Cairo, sans-serif" }}
+                  >
+                    {article.title}
+                  </h3>
 
-                {/* Read more */}
-                <Link
-                  href={`/blog/${article.slug}`}
-                  className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300"
-                  style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.gap = "10px")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.gap = "8px")}
-                >
-                  اقرأ المزيد
-                  <ArrowLeft size={16} />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+                  {/* Summary */}
+                  <p
+                    className="text-sm mb-5 line-clamp-2 leading-relaxed"
+                    style={{ color: "#6B7280", fontFamily: "Cairo, sans-serif" }}
+                  >
+                    {article.excerpt || "اضغط لقراءة تفاصيل المقال..."}
+                  </p>
+
+                  {/* Read more */}
+                  <div
+                    className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300"
+                    style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}
+                  >
+                    اقرأ المزيد
+                    <ArrowLeft size={16} className="transform group-hover:-translate-x-2 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
