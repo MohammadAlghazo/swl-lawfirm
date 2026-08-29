@@ -27,8 +27,8 @@ export async function POST(request: Request) {
 
     try {
       await resend.emails.send({
-        from: 'Contact Form <onboarding@resend.dev>', // Resend provides a testing domain
-        to: 'mohammadalghazo2004m@gmail.com', // Temporary for testing until domain is verified
+        from: 'Contact Form <onboarding@resend.dev>', // Temporary until domain is verified
+        to: 'info@swl-lawfirm.com.sa',
         subject: `رسالة تواصل جديدة من: ${name}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
