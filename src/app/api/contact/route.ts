@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     try {
       await resend.emails.send({
-        from: 'Contact Form <onboarding@resend.dev>', // Temporary until domain is verified
+        from: 'سمو الحكمة <noreply@swl-lawfirm.com.sa>', // Using the verified official domain
         to: 'info@swl-lawfirm.com.sa',
         subject: `رسالة تواصل جديدة من: ${name}`,
         html: `
