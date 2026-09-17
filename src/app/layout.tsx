@@ -3,6 +3,7 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import NavbarWrapper from "@/components/layout/NavbarWrapper";
 import FooterWrapper from "@/components/layout/FooterWrapper";
+import WhatsAppButton from "@/components/layout/WhatsAppButton";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -52,6 +53,7 @@ export default function RootLayout({
         <NavbarWrapper />
         <main>{children}</main>
         <FooterWrapper />
+        <WhatsAppButton />
       </body>
     </html>
   );

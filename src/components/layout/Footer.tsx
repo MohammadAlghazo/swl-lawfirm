@@ -27,6 +27,12 @@ const TikTokIcon = () => (
   </svg>
 );
 
+const WhatsAppIcon = ({ size = 18 }: { size?: number }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width={size} height={size}>
+    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416C6.674 2 2.32 6.354 2.32 11.71c0 2.096.666 4.041 1.805 5.632L2.73 22l4.809-1.365c1.517.828 3.254 1.296 5.093 1.296 5.356 0 9.71-4.354 9.71-9.71 0-5.357-4.354-9.711-9.71-9.711z" />
+  </svg>
+);
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -91,6 +97,11 @@ export default function Footer() {
                     </svg>
                   ),
                   label: "X",
+                },
+                {
+                  href: "https://wa.me/966544406986",
+                  icon: <WhatsAppIcon size={18} />,
+                  label: "WhatsApp",
                 },
               ].map(({ href, icon, label }) => (
                 <a
@@ -195,28 +206,49 @@ export default function Footer() {
               />
             </h3>
             <ul className="space-y-4">
-              {/* Jeddah Branch */}
+              {/* Jeddah Branch (Main Headquarters) */}
               <li>
-                <p className="text-xs font-bold mb-1.5" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
-                  فرع جدة
-                </p>
-                <div className="flex items-start gap-2 mb-1">
-                  <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#B08D57" }} />
-                  <span className="text-xs" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "Cairo, sans-serif" }}>
-                    شارع عبدالله السليمان
-                  </span>
+                <div className="flex items-center justify-between mb-1.5">
+                  <p className="text-xs font-bold" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
+                    فرع جدة (المقر الرئيسي)
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Phone size={14} className="flex-shrink-0" style={{ color: "#B08D57" }} />
+                <div className="flex items-start gap-2 mb-2">
+                  <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#B08D57" }} />
                   <a
-                    href="tel:+966544406986"
-                    className="text-xs transition-colors duration-300"
-                    style={{ color: "rgba(255,255,255,0.6)" }}
-                    dir="ltr"
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#B08D57")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)")}
+                    href="https://maps.app.goo.gl/RU1pgYgDiK5bA7Hy7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs transition-colors duration-300 inline-flex items-center gap-1.5 group hover:text-[#B08D57]"
+                    style={{ color: "rgba(255,255,255,0.7)", fontFamily: "Cairo, sans-serif" }}
                   >
-                    +966 54 440 6986
+                    <span>شارع عبدالله السليمان</span>
+                    <span className="text-[10px] bg-[#B08D57]/20 text-[#B08D57] px-1.5 py-0.5 rounded border border-[#B08D57]/30 group-hover:bg-[#B08D57] group-hover:text-white transition-all">
+                      الخريطة ↗
+                    </span>
+                  </a>
+                </div>
+                <div className="flex items-center flex-wrap gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <Phone size={14} className="flex-shrink-0" style={{ color: "#B08D57" }} />
+                    <a
+                      href="tel:+966544406986"
+                      className="text-xs transition-colors duration-300 hover:text-[#B08D57]"
+                      style={{ color: "rgba(255,255,255,0.7)" }}
+                      dir="ltr"
+                    >
+                      +966 54 440 6986
+                    </a>
+                  </div>
+                  <a
+                    href="https://wa.me/966544406986"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all font-cairo font-semibold"
+                    title="محادثة مباشرة عبر واتساب"
+                  >
+                    <WhatsAppIcon size={12} />
+                    <span>واتساب</span>
                   </a>
                 </div>
               </li>
@@ -228,19 +260,26 @@ export default function Footer() {
                 </p>
                 <div className="flex items-start gap-2 mb-1">
                   <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#B08D57" }} />
-                  <span className="text-xs" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "Cairo, sans-serif" }}>
-                    كورنيش وادي العقيق
-                  </span>
+                  <a
+                    href="https://maps.app.goo.gl/RU1pgYgDiK5bA7Hy7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs transition-colors duration-300 inline-flex items-center gap-1.5 group hover:text-[#B08D57]"
+                    style={{ color: "rgba(255,255,255,0.7)", fontFamily: "Cairo, sans-serif" }}
+                  >
+                    <span>كورنيش وادي العقيق</span>
+                    <span className="text-[10px] bg-[#B08D57]/20 text-[#B08D57] px-1.5 py-0.5 rounded border border-[#B08D57]/30 group-hover:bg-[#B08D57] group-hover:text-white transition-all">
+                      الخريطة ↗
+                    </span>
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={14} className="flex-shrink-0" style={{ color: "#B08D57" }} />
                   <a
                     href="tel:+966570230900"
-                    className="text-xs transition-colors duration-300"
-                    style={{ color: "rgba(255,255,255,0.6)" }}
+                    className="text-xs transition-colors duration-300 hover:text-[#B08D57]"
+                    style={{ color: "rgba(255,255,255,0.7)" }}
                     dir="ltr"
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#B08D57")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)")}
                   >
                     +966 57 023 0900
                   </a>
