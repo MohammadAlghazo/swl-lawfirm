@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export default function ClientsSection() {
   const clients = [
@@ -9,14 +10,15 @@ export default function ClientsSection() {
   ];
 
   const memberships = [
-    { name: "REGA", fullName: "الهيئة العامة للعقار" },
-    { name: "SBA", fullName: "الهيئة السعودية للمحامين" },
-    { name: "وزارة العدل", fullName: "Ministry of Justice" },
-    { name: "HRSD", fullName: "الموارد البشرية والتنمية الاجتماعية" },
-    { name: "منشآت", fullName: "مركز الامتياز التجاري" },
-    { name: "منشآت", fullName: "مزايا" },
-    { name: "الموثق", fullName: "Almwathiq" },
-    { name: "خبرة", fullName: "Khibrah Platform" },
+    { name: "الهيئة العامة للعقار", image: "/images/memberships/rega.png" },
+    { name: "الهيئة السعودية للمحامين", image: "/images/memberships/sba.png" },
+    { name: "وزارة العدل", image: "/images/memberships/moj.png" },
+    { name: "الموارد البشرية", image: "/images/memberships/hrsd.png" },
+    { name: "منشآت", image: "/images/memberships/monshaat.png" },
+    { name: "منشآت مزايا", image: "/images/memberships/monshaat-mazaya.png" },
+    { name: "الموثق", image: "/images/memberships/almwathiq.png" },
+    { name: "منصة خبرة", image: "/images/memberships/khibrah.png" },
+    { name: "الجمعية العلمية القضائية", image: "/images/memberships/qadaa.png" },
   ];
 
   return (
@@ -89,35 +91,41 @@ export default function ClientsSection() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-4">
             {memberships.map((m) => (
               <div
-                key={m.name + m.fullName}
-                className="flex flex-col items-center justify-center p-5 rounded-lg text-center transition-all duration-300"
+                key={m.name}
+                className="group relative flex flex-col items-center justify-center p-4 rounded-xl text-center transition-all duration-300 w-36 h-36 md:w-44 md:h-40"
                 style={{
                   backgroundColor: "#F9F7F4",
                   border: "1px solid rgba(27, 43, 75, 0.08)",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(176, 141, 87, 0.06)";
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#ffffff";
                   (e.currentTarget as HTMLElement).style.borderColor = "rgba(176, 141, 87, 0.25)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 12px rgba(27, 43, 75, 0.05)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.backgroundColor = "#F9F7F4";
                   (e.currentTarget as HTMLElement).style.borderColor = "rgba(27, 43, 75, 0.08)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
                 }}
+                title={m.name}
               >
+                <div className="relative w-full h-full mb-2 flex-1 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src={m.image}
+                    alt={m.name}
+                    fill
+                    sizes="(max-width: 768px) 144px, 176px"
+                    className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
                 <div
-                  className="text-base font-bold mb-1"
+                  className="text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -bottom-6 whitespace-nowrap bg-white px-2 py-1 rounded shadow-sm border border-gray-100"
                   style={{ color: "#1B2B4B", fontFamily: "Cairo, sans-serif" }}
                 >
                   {m.name}
-                </div>
-                <div
-                  className="text-xs"
-                  style={{ color: "#9CA3AF", fontFamily: "Cairo, sans-serif" }}
-                >
-                  {m.fullName}
                 </div>
               </div>
             ))}
