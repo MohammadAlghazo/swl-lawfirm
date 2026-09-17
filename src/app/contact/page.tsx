@@ -12,9 +12,9 @@ export default function ContactPage() {
     <main className="min-h-screen pb-20 bg-gray-50 font-cairo">
       {/* Header Section */}
       <section className="bg-navy text-white pt-44 pb-20 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%),linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%)] bg-[length:20px_20px] bg-[position:0_0,10px_10px]"></div>
+        {/* Solid / Soft Background */}
+        <div className="absolute inset-0 bg-[#1B2B4B]">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#111c33] opacity-50"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10 text-center">
@@ -67,8 +67,15 @@ export default function ContactPage() {
                     <PhoneCall className="w-5 h-5 text-gold" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">اتصل بنا</p>
-                    <p className="font-bold text-lg hover:text-gold-light transition-colors cursor-pointer" dir="ltr">+966 54 440 6986</p>
+                    <p className="text-sm text-gray-400 mb-1">اتصل بنا أو راسلنا</p>
+                    <div className="flex items-center gap-3">
+                      <a href="tel:+966544406986" className="font-bold text-lg hover:text-gold-light transition-colors" dir="ltr">+966 54 440 6986</a>
+                      <a href="https://wa.me/966544406986" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366] text-white hover:bg-[#20b858] transition-transform hover:scale-110 shadow-sm" title="تواصل عبر واتساب">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -100,7 +107,10 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-1">المقر الرئيسي</p>
-                    <p className="font-bold leading-relaxed">جدة</p>
+                    <a href="https://maps.app.goo.gl/RU1pgYgDiK5bA7Hy7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-bold leading-relaxed hover:text-gold-light transition-colors group">
+                      جدة
+                      <span className="text-[10px] bg-white/10 group-hover:bg-gold/20 px-2 py-1 rounded border border-white/10 transition-colors">عرض الخريطة</span>
+                    </a>
                   </div>
                 </div>
               </div>
