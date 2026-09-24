@@ -5,8 +5,13 @@ import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
 export default async function EditArticlePage({ params }: { params: { id: string } }) {
+  const articleId = parseInt(params.id, 10);
+  if (isNaN(articleId)) {
+    notFound();
+  }
+
   const article = await prisma.article.findUnique({
-    where: { id: params.id }
+    where: { id: articleId }
   });
 
   if (!article) {

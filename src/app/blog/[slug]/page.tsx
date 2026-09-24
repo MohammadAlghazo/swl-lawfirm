@@ -8,8 +8,11 @@ import { ar } from "date-fns/locale";
 export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = await prisma.article.findUnique({
-    where: { slug: params.slug }
+  const decodedSlug = decodeURIComponent(params.slug);
+  const article = await prisma.article.findFirst({
+    where: {
+      OR: [{ slug: params.slug }, { slug: decodedSlug }],
+    },
   });
 
   if (!article) return { title: "مقال غير موجود" };
@@ -21,11 +24,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await prisma.article.findUnique({
-    where: { slug: params.slug }
+  const decodedSlug = decodeURIComponent(params.slug);
+  const article = await prisma.article.findFirst({
+    where: {
+      published: true,
+      OR: [{ slug: params.slug }, { slug: decodedSlug }],
+    },
   });
 
-  if (!article || !article.published) {
+  if (!article) {
     notFound();
   }
 

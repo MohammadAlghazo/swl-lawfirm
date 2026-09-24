@@ -12,7 +12,19 @@ export async function DELETE(
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
     }
 
-    const articleId = params.id;
+    const articleId = parseInt(params.id, 10);
+    if (isNaN(articleId)) {
+      return NextResponse.json({ error: "معرف المقال غير صالح" }, { status: 400 });
+    }
+
+    const existingArticle = await prisma.article.findUnique({
+      where: { id: articleId }
+    });
+
+    if (!existingArticle) {
+      return NextResponse.json({ error: "المقال غير موجود" }, { status: 404 });
+    }
+
     await prisma.article.delete({
       where: { id: articleId }
     });
@@ -34,18 +46,22 @@ export async function PUT(
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
     }
 
-    const articleId = params.id;
+    const articleId = parseInt(params.id, 10);
+    if (isNaN(articleId)) {
+      return NextResponse.json({ error: "معرف المقال غير صالح" }, { status: 400 });
+    }
+
     const { title, slug, excerpt, content, coverImage, published } = await request.json();
 
     if (!title || !slug || !content) {
       return NextResponse.json({ error: "يرجى تعبئة جميع الحقول المطلوبة" }, { status: 400 });
     }
 
-    const existingArticle = await prisma.article.findUnique({
+    const existingSlugArticle = await prisma.article.findUnique({
       where: { slug }
     });
 
-    if (existingArticle && existingArticle.id !== articleId) {
+    if (existingSlugArticle && existingSlugArticle.id !== articleId) {
       return NextResponse.json({ error: "رابط المقال (Slug) مستخدم لمقال آخر، يرجى تغييره" }, { status: 400 });
     }
 

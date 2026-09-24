@@ -13,7 +13,10 @@ export async function DELETE(
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
     }
 
-    const messageId = params.id;
+    const messageId = parseInt(params.id, 10);
+    if (isNaN(messageId)) {
+      return NextResponse.json({ error: "معرف الرسالة غير صالح" }, { status: 400 });
+    }
 
     const existingMessage = await prisma.contactMessage.findUnique({
       where: { id: messageId }
