@@ -185,7 +185,6 @@ export default function ServicesPage() {
 
         {/* CTA Section */}
         <div className="bg-navy rounded-3xl p-12 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-full h-full bg-[url('/pattern.png')] opacity-10"></div>
           <div className="relative z-10">
             <h2 className="text-3xl font-bold text-white mb-6">هل تبحث عن استشارة قانونية متخصصة؟</h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">

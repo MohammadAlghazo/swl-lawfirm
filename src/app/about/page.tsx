@@ -25,14 +25,9 @@ export default function AboutPage() {
 
       {/* ===== HERO ===== */}
       <section className="relative bg-[#1B2B4B] text-white pt-44 pb-28 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)",
-            backgroundSize: "24px 24px",
-          }}
-        />
+        <div className="absolute inset-0 bg-[#1B2B4B]">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#111c33] opacity-50"></div>
+        </div>
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B08D57] to-transparent opacity-40" />
         <div className="container-custom relative z-10 text-center">
           <span className="inline-block text-[#B08D57] text-sm font-semibold tracking-widest uppercase mb-6 border border-[#B08D57]/30 px-4 py-2 rounded-full">
@@ -291,13 +286,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-16 bg-[#1B2B4B] rounded-2xl p-10 text-center relative overflow-hidden">
-            <div
-              className="absolute inset-0 opacity-[0.03]"
-              style={{
-                backgroundImage: "repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)",
-                backgroundSize: "24px 24px",
-              }}
-            />
+
             <p className="text-[#B08D57] text-xl font-bold relative z-10 mb-2">
               في سمو الحكمة، لا نقدم رأياً قانونياً فحسب
             </p>

@@ -44,9 +44,8 @@ export default function TeamPage() {
     <main className="min-h-screen pb-20 bg-gray-50 font-cairo">
       {/* Header Section */}
       <section className="bg-navy text-white pt-44 pb-20 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%),linear-gradient(45deg,#ffffff_25%,transparent_25%,transparent_75%,#ffffff_75%,#ffffff_100%)] bg-[length:20px_20px] bg-[position:0_0,10px_10px]"></div>
+        <div className="absolute inset-0 bg-[#1B2B4B]">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#111c33] opacity-50"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10 text-center">

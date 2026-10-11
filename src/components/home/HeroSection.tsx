@@ -51,14 +51,6 @@ export default function HeroSection() {
           background: "linear-gradient(135deg, rgba(10,18,35,0.78) 0%, rgba(27,43,75,0.68) 50%, rgba(10,18,35,0.78) 100%)",
         }}
       />
-      {/* Layer 2: subtle texture dots for depth */}
-      <div
-        className="absolute inset-0 opacity-15"
-        style={{
-          backgroundImage: "radial-gradient(rgba(176,141,87,0.12) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
       {/* Layer 3: bottom fade to ensure stats bar blends */}
       <div
         className="absolute bottom-0 left-0 right-0 h-40"

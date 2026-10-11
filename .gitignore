@@ -40,3 +40,14 @@ next-env.d.ts
 # AI export files
 export-code.ps1
 project-code.md
+
+# AI Rules & Agent Skills
+AGENTS.md
+GEMINI.md
+.agents/
+.cursor/
+.claude/
+.devin/
+remove-comments.js
+prisma.config.ts
+public/test-crop.html
