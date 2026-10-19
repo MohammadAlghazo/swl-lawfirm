@@ -1,5 +1,6 @@
 "use client";
 
+import { validateAdminForm } from "@/lib/form-validation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -14,8 +15,11 @@ export default function AdminLogin() {
     password: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading) return;
+    const validationError = validateAdminForm(e, "admin-form-error");
+    if (validationError) { setError(validationError); return; }
     setIsLoading(true);
     setError("");
 
@@ -34,8 +38,8 @@ export default function AdminLogin() {
 
       router.push("/admin");
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "تعذر تسجيل الدخول");
     } finally {
       setIsLoading(false);
     }
@@ -59,9 +63,9 @@ export default function AdminLogin() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10 border border-gray-100">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form noValidate className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 text-red-500 p-3 rounded-lg text-sm text-center border border-red-100">
+              <div role="alert" id="admin-form-error" className="bg-red-50 text-red-500 p-3 rounded-lg text-sm text-center border border-red-100">
                 {error}
               </div>
             )}

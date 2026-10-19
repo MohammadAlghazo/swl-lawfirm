@@ -1,12 +1,29 @@
 "use client";
+
 import Image from "next/image";
 
 export default function ClientsSection() {
   const clients = [
-    { name: "Alkawader Almaseih", abbr: "A.M" },
-    { name: "Khabeer", abbr: "KH" },
-    { name: "National Casting", abbr: "NC" },
-    { name: "Coins Cup", abbr: "CC" },
+    {
+      name: "الكوادر الماسية",
+      enName: "Alkawader Almaseih",
+      logo: "/images/clients/alkawader.png",
+    },
+    {
+      name: "خبراء الأمانة (خبير)",
+      enName: "Khabeer",
+      logo: "/images/clients/khabeer.png",
+    },
+    {
+      name: "السباكة الوطنية للمقاولات",
+      enName: "National Casting",
+      logo: "/images/clients/national-casting.png",
+    },
+    {
+      name: "كوينز كب",
+      enName: "Coins Cup",
+      logo: "/images/clients/coinscup.png",
+    },
   ];
 
   const memberships = [
@@ -23,51 +40,42 @@ export default function ClientsSection() {
 
   return (
     <>
-      {/* Clients Section */}
-      <section className="section-padding" style={{ backgroundColor: "#F9F7F4" }}>
+      {/* ── Clients Section ── */}
+      <section className="section-padding bg-[#F9F7F4]">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12" style={{ backgroundColor: "#B08D57" }} />
-              <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
+          <div className="text-center mb-8 sm:mb-12">
+            <div className="flex items-center justify-center gap-3 mb-2.5">
+              <div className="h-px w-8 sm:w-12 bg-[#B08D57]" />
+              <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#B08D57]">
                 عملاؤنا
               </span>
-              <div className="h-px w-12" style={{ backgroundColor: "#B08D57" }} />
+              <div className="h-px w-8 sm:w-12 bg-[#B08D57]" />
             </div>
-            <h2 className="section-title text-4xl" style={{ fontFamily: "Cairo, sans-serif" }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#34495D]">
               من عملائنا
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {clients.map((client) => (
               <div
                 key={client.name}
-                className="flex flex-col items-center justify-center p-8 rounded-lg transition-all duration-300"
-                style={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid rgba(27, 43, 75, 0.08)",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(176, 141, 87, 0.3)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(27, 43, 75, 0.08)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(27, 43, 75, 0.08)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                }}
+                className="group flex flex-col items-center justify-center p-4 sm:p-7 rounded-2xl bg-white border border-gray-100 shadow-xs hover:shadow-lg hover:border-[#B08D57]/40 transition-all duration-300"
               >
-                <div
-                  className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold mb-3"
-                  style={{ backgroundColor: "rgba(176, 141, 87, 0.1)", color: "#B08D57", fontFamily: "Cairo, sans-serif" }}
-                >
-                  {client.abbr}
+                <div className="relative w-full h-14 sm:h-20 flex items-center justify-center mb-2.5 sm:mb-4 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-contain"
+                  />
                 </div>
-                <span
-                  className="text-sm font-semibold text-center"
-                  style={{ color: "#1B2B4B", fontFamily: "Cairo, sans-serif" }}
-                >
+                <span className="text-sm font-bold text-[#34495D] text-center leading-snug ">
                   {client.name}
+                </span>
+                <span className="text-xs text-gray-400 font-medium text-center mt-0.5 line-clamp-1">
+                  {client.enName}
                 </span>
               </div>
             ))}
@@ -75,57 +83,38 @@ export default function ClientsSection() {
         </div>
       </section>
 
-      {/* Memberships Section */}
-      <section className="section-padding" style={{ backgroundColor: "#ffffff" }}>
+      {/* ── Memberships & Accreditations Section ── */}
+      <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12" style={{ backgroundColor: "#B08D57" }} />
-              <span className="text-sm font-semibold uppercase tracking-widest" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
+          <div className="text-center mb-8 sm:mb-12">
+            <div className="flex items-center justify-center gap-3 mb-2.5">
+              <div className="h-px w-8 sm:w-12 bg-[#B08D57]" />
+              <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#B08D57]">
                 اعتماداتنا
               </span>
-              <div className="h-px w-12" style={{ backgroundColor: "#B08D57" }} />
+              <div className="h-px w-8 sm:w-12 bg-[#B08D57]" />
             </div>
-            <h2 className="section-title text-4xl" style={{ fontFamily: "Cairo, sans-serif" }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#34495D]">
               العضويات والاعتمادات
             </h2>
           </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-4">
+          {/* Responsive 3-columns on mobile (3x3 grid), 5 columns on desktop - Always Full Natural Colors */}
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-2.5 sm:gap-4 max-w-4xl mx-auto items-center">
             {memberships.map((m) => (
               <div
                 key={m.name}
-                className="group relative flex flex-col items-center justify-center p-4 rounded-xl text-center transition-all duration-300 w-36 h-36 md:w-44 md:h-40"
-                style={{
-                  backgroundColor: "#F9F7F4",
-                  border: "1px solid rgba(27, 43, 75, 0.08)",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#ffffff";
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(176, 141, 87, 0.25)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 12px rgba(27, 43, 75, 0.05)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#F9F7F4";
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(27, 43, 75, 0.08)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                }}
+                className="group relative flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-2xl bg-[#F9F7F4] hover:bg-white border border-[#34495D]/10 hover:border-[#B08D57]/40 shadow-xs hover:shadow-md transition-all duration-300 aspect-square"
                 title={m.name}
               >
-                <div className="relative w-full h-full mb-2 flex-1 transition-transform duration-300 group-hover:scale-105">
+                <div className="relative w-full h-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src={m.image}
                     alt={m.name}
                     fill
-                    sizes="(max-width: 768px) 144px, 176px"
-                    className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                    sizes="(max-width: 768px) 33vw, 160px"
+                    className="object-contain"
                   />
-                </div>
-                <div
-                  className="text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -bottom-6 whitespace-nowrap bg-white px-2 py-1 rounded shadow-sm border border-gray-100"
-                  style={{ color: "#1B2B4B", fontFamily: "Cairo, sans-serif" }}
-                >
-                  {m.name}
                 </div>
               </div>
             ))}

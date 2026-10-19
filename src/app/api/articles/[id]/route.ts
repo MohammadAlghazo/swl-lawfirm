@@ -1,10 +1,11 @@
+import { sanitizeArticleHtml } from "@/lib/article-html";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getSession();
@@ -12,7 +13,7 @@ export async function DELETE(
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
     }
 
-    const articleId = parseInt(params.id, 10);
+    const articleId = parseInt((await params).id, 10);
     if (isNaN(articleId)) {
       return NextResponse.json({ error: "معرف المقال غير صالح" }, { status: 400 });
     }
@@ -38,7 +39,7 @@ export async function DELETE(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getSession();
@@ -46,14 +47,14 @@ export async function PUT(
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
     }
 
-    const articleId = parseInt(params.id, 10);
+    const articleId = parseInt((await params).id, 10);
     if (isNaN(articleId)) {
       return NextResponse.json({ error: "معرف المقال غير صالح" }, { status: 400 });
     }
 
     const { title, slug, excerpt, content, coverImage, published } = await request.json();
 
-    if (!title || !slug || !content) {
+    if (typeof title !== "string" || !title.trim() || typeof slug !== "string" || !/^[\p{L}\p{N}_-]+$/u.test(slug) || typeof content !== "string" || !content.trim()) {
       return NextResponse.json({ error: "يرجى تعبئة جميع الحقول المطلوبة" }, { status: 400 });
     }
 
@@ -71,7 +72,7 @@ export async function PUT(
         title,
         slug,
         excerpt,
-        content,
+        content: sanitizeArticleHtml(content),
         coverImage: coverImage || null,
         published,
       }

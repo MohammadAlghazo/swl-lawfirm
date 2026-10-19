@@ -4,8 +4,8 @@ import { ArrowRight } from "lucide-react";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export default async function EditArticlePage({ params }: { params: { id: string } }) {
-  const articleId = parseInt(params.id, 10);
+export default async function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  const articleId = parseInt((await params).id, 10);
   if (isNaN(articleId)) {
     notFound();
   }

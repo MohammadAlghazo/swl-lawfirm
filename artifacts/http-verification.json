@@ -1,0 +1,57 @@
+{
+  "base": "http://localhost:3001",
+  "results": [
+    {
+      "name": "public route /",
+      "passed": true
+    },
+    {
+      "name": "public route /about",
+      "passed": true
+    },
+    {
+      "name": "public route /services",
+      "passed": true
+    },
+    {
+      "name": "public route /services/corporate",
+      "passed": true
+    },
+    {
+      "name": "public route /services/individual",
+      "passed": true
+    },
+    {
+      "name": "public route /team",
+      "passed": true
+    },
+    {
+      "name": "public route /blog",
+      "passed": true
+    },
+    {
+      "name": "public route /contact",
+      "passed": true
+    },
+    {
+      "name": "both service sectors are in the sitemap",
+      "passed": true
+    },
+    {
+      "name": "missing article returns 404",
+      "passed": true
+    },
+    {
+      "name": "contact rejects malformed and invalid requests",
+      "passed": true
+    },
+    {
+      "name": "admin rejects absent, arbitrary and legacy-signed sessions",
+      "passed": true
+    },
+    {
+      "name": "admin APIs reject forged sessions",
+      "passed": true
+    }
+  ]
+}

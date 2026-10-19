@@ -4,7 +4,7 @@ import { getSession } from "@/lib/auth";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
 
@@ -13,7 +13,7 @@ export async function DELETE(
       return NextResponse.json({ error: "غير مصرح لك للقيام بهذه العملية" }, { status: 401 });
     }
 
-    const messageId = parseInt(params.id, 10);
+    const messageId = parseInt((await params).id, 10);
     if (isNaN(messageId)) {
       return NextResponse.json({ error: "معرف الرسالة غير صالح" }, { status: 400 });
     }

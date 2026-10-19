@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/metadata";
 export const revalidate = 3600; // Cache for 1 hour
 
 import type { Metadata } from "next";
@@ -9,8 +10,8 @@ import TeamSection from "@/components/home/TeamSection";
 import BlogSection from "@/components/home/BlogSection";
 import ClientsSection from "@/components/home/ClientsSection";
 
-export const metadata: Metadata = {
-  title: "شركة سمو الحكمة للمحاماة والاستشارات القانونية | رؤية قانونية أعمق",
+const metadata: Metadata = {
+  title: "شركة سمو الحكمة للمحاماة والاستشارات القانونية",
   description:
     "شركة سمو الحكمة للمحاماة والاستشارات القانونية - رؤية قانونية أعمق. نقدم خدمات قانونية متكاملة للأفراد والشركات في المملكة العربية السعودية من فرعَي جدة والمدينة المنورة.",
   openGraph: {
@@ -33,3 +34,5 @@ export default function HomePage() {
     </>
   );
 }
+
+export function generateMetadata() { return withPageMetadata(metadata, "/"); }

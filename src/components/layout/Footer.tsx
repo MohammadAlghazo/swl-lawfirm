@@ -1,10 +1,7 @@
-"use client";
-
 import Link from "next/link";
-import { MapPin, Phone, Mail, Globe } from "lucide-react";
+import { LockKeyhole, Mail, MapPin, Phone } from "lucide-react";
 
 const quickLinks = [
-  { href: "/", label: "الرئيسية" },
   { href: "/about", label: "عن الشركة" },
   { href: "/services", label: "خدماتنا" },
   { href: "/team", label: "فريق العمل" },
@@ -12,334 +9,34 @@ const quickLinks = [
   { href: "/contact", label: "تواصل معنا" },
 ];
 
-const services = [
-  "الاستشارات القانونية",
-  "التقاضي والتمثيل القضائي",
-  "العقود والاتفاقيات",
-  "الشركات والحوكمة",
-  "نظام العمل والعلاقات العمالية",
-  "العقارات والتوثيق",
-];
-
-const TikTokIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.84a8.27 8.27 0 004.84 1.55V6.94a4.85 4.85 0 01-1.07-.25z" />
-  </svg>
-);
-
-const WhatsAppIcon = ({ size = 18 }: { size?: number }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" width={size} height={size}>
-    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416C6.674 2 2.32 6.354 2.32 11.71c0 2.096.666 4.041 1.805 5.632L2.73 22l4.809-1.365c1.517.828 3.254 1.296 5.093 1.296 5.356 0 9.71-4.354 9.71-9.71 0-5.357-4.354-9.711-9.71-9.711z" />
-  </svg>
-);
-
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  return (
-    <footer style={{ backgroundColor: "#0F1A2E", color: "#ffffff" }}>
-      {/* Main Footer */}
-      <div className="container mx-auto px-4 md:px-8 pt-10 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Column 1: About */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-5">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center border-2"
-                style={{ borderColor: "#B08D57", backgroundColor: "rgba(176, 141, 87, 0.1)" }}
-              >
-                <span className="text-lg" style={{ color: "#B08D57" }}>⚖</span>
-              </div>
-              <div>
-                <div className="font-bold text-base" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
-                  سمو الحكمة
-                </div>
-                <div className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  LAW FIRM
-                </div>
-              </div>
-            </Link>
-            <p
-              className="text-sm leading-relaxed mb-5"
-              style={{ color: "rgba(255,255,255,0.6)", fontFamily: "Cairo, sans-serif", lineHeight: "1.8" }}
-            >
-              شركة مهنية تقدم منظومة متكاملة من الخدمات القانونية للأفراد وقطاع الأعمال، انطلاقاً من فهم دقيق للأنظمة.
-            </p>
-            <div className="flex items-center gap-2">
-              <span className="text-xs" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
-                رقم الترخيص:
-              </span>
-              <span className="text-xs font-bold" style={{ color: "rgba(255,255,255,0.8)" }}>
-                47685
-              </span>
-            </div>
-
-            {/* Social Media */}
-            <div className="flex gap-3 mt-5">
-              {[
-                {
-                  href: "https://www.instagram.com/swl_ksa/",
-                  icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                      <circle cx="12" cy="12" r="4"/>
-                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                    </svg>
-                  ),
-                  label: "Instagram",
-                },
-                { href: "https://www.tiktok.com/@swl_ksa0", icon: <TikTokIcon />, label: "TikTok" },
-                {
-                  href: "https://x.com/swl_ksa",
-                  icon: (
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                  ),
-                  label: "X",
-                },
-                {
-                  href: "https://wa.me/966544406986",
-                  icon: <WhatsAppIcon size={18} />,
-                  label: "WhatsApp",
-                },
-              ].map(({ href, icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
-                  style={{ backgroundColor: "rgba(176, 141, 87, 0.1)", color: "#B08D57", border: "1px solid rgba(176, 141, 87, 0.2)" }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor = "#B08D57";
-                    (e.currentTarget as HTMLElement).style.color = "#ffffff";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(176, 141, 87, 0.1)";
-                    (e.currentTarget as HTMLElement).style.color = "#B08D57";
-                  }}
-                >
-                  {icon}
-                </a>
-              ))}
-            </div>
+  return <footer className="site-footer">
+    <div className="container-custom">
+      <div className="footer-grid">
+        <div className="footer-brand">
+          <Link href="/" className="!text-gold-light text-lg font-bold">سمو الحكمة للمحاماة</Link>
+          <p className="text-xs mt-2">رقم الترخيص: <span className="text-white">47685</span></p>
+          <div className="flex flex-wrap gap-x-5 text-xs" aria-label="حسابات التواصل الاجتماعي">
+            <a href="https://www.instagram.com/swl_ksa/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.tiktok.com/@swl_ksa0" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://x.com/swl_ksa" target="_blank" rel="noopener noreferrer" aria-label="حساب سمو الحكمة على إكس">X</a>
           </div>
-
-          {/* Column 2: Quick Links */}
-          <div>
-            <h3
-              className="font-bold text-base mb-5 relative pb-3"
-              style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}
-            >
-              روابط سريعة
-              <span
-                className="absolute bottom-0 right-0 w-10 h-0.5"
-                style={{ background: "linear-gradient(90deg, #B08D57, transparent)" }}
-              />
-            </h3>
-            <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm flex items-center gap-2 transition-all duration-300 group"
-                    style={{ color: "rgba(255,255,255,0.6)", fontFamily: "Cairo, sans-serif" }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = "#B08D57";
-                      (e.currentTarget as HTMLElement).style.paddingRight = "8px";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)";
-                      (e.currentTarget as HTMLElement).style.paddingRight = "0";
-                    }}
-                  >
-                    <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: "#B08D57" }} />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3: Services */}
-          <div>
-            <h3
-              className="font-bold text-base mb-5 relative pb-3"
-              style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}
-            >
-              خدماتنا
-              <span
-                className="absolute bottom-0 right-0 w-10 h-0.5"
-                style={{ background: "linear-gradient(90deg, #B08D57, transparent)" }}
-              />
-            </h3>
-            <ul className="space-y-2.5">
-              {services.map((service) => (
-                <li key={service}>
-                  <Link
-                    href="/services"
-                    className="text-sm flex items-center gap-2 transition-colors duration-300"
-                    style={{ color: "rgba(255,255,255,0.6)", fontFamily: "Cairo, sans-serif" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#B08D57")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)")}
-                  >
-                    <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: "#B08D57" }} />
-                    {service}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Contact */}
-          <div>
-            <h3
-              className="font-bold text-base mb-5 relative pb-3"
-              style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}
-            >
-              تواصل معنا
-              <span
-                className="absolute bottom-0 right-0 w-10 h-0.5"
-                style={{ background: "linear-gradient(90deg, #B08D57, transparent)" }}
-              />
-            </h3>
-            <ul className="space-y-4">
-              {/* Jeddah Branch (Main Headquarters) */}
-              <li>
-                <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-xs font-bold" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
-                    فرع جدة (المقر الرئيسي)
-                  </p>
-                </div>
-                <div className="flex items-start gap-2 mb-2">
-                  <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#B08D57" }} />
-                  <a
-                    href="https://maps.app.goo.gl/RU1pgYgDiK5bA7Hy7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs transition-colors duration-300 inline-flex items-center gap-1.5 group hover:text-[#B08D57]"
-                    style={{ color: "rgba(255,255,255,0.7)", fontFamily: "Cairo, sans-serif" }}
-                  >
-                    <span>شارع عبدالله السليمان</span>
-                    <span className="text-[10px] bg-[#B08D57]/20 text-[#B08D57] px-1.5 py-0.5 rounded border border-[#B08D57]/30 group-hover:bg-[#B08D57] group-hover:text-white transition-all">
-                      الخريطة ↗
-                    </span>
-                  </a>
-                </div>
-                <div className="flex items-center flex-wrap gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <Phone size={14} className="flex-shrink-0" style={{ color: "#B08D57" }} />
-                    <a
-                      href="tel:+966544406986"
-                      className="text-xs transition-colors duration-300 hover:text-[#B08D57]"
-                      style={{ color: "rgba(255,255,255,0.7)" }}
-                      dir="ltr"
-                    >
-                      +966 54 440 6986
-                    </a>
-                  </div>
-                  <a
-                    href="https://wa.me/966544406986"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all font-cairo font-semibold"
-                    title="محادثة مباشرة عبر واتساب"
-                  >
-                    <WhatsAppIcon size={12} />
-                    <span>واتساب</span>
-                  </a>
-                </div>
-              </li>
-
-              {/* Madinah Branch */}
-              <li>
-                <p className="text-xs font-bold mb-1.5" style={{ color: "#B08D57", fontFamily: "Cairo, sans-serif" }}>
-                  فرع المدينة المنورة
-                </p>
-                <div className="flex items-start gap-2 mb-1">
-                  <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#B08D57" }} />
-                  <a
-                    href="https://maps.app.goo.gl/RU1pgYgDiK5bA7Hy7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs transition-colors duration-300 inline-flex items-center gap-1.5 group hover:text-[#B08D57]"
-                    style={{ color: "rgba(255,255,255,0.7)", fontFamily: "Cairo, sans-serif" }}
-                  >
-                    <span>كورنيش وادي العقيق</span>
-                    <span className="text-[10px] bg-[#B08D57]/20 text-[#B08D57] px-1.5 py-0.5 rounded border border-[#B08D57]/30 group-hover:bg-[#B08D57] group-hover:text-white transition-all">
-                      الخريطة ↗
-                    </span>
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone size={14} className="flex-shrink-0" style={{ color: "#B08D57" }} />
-                  <a
-                    href="tel:+966570230900"
-                    className="text-xs transition-colors duration-300 hover:text-[#B08D57]"
-                    style={{ color: "rgba(255,255,255,0.7)" }}
-                    dir="ltr"
-                  >
-                    +966 57 023 0900
-                  </a>
-                </div>
-              </li>
-
-              {/* Email & Website */}
-              <li className="space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <Mail size={14} className="flex-shrink-0" style={{ color: "#B08D57" }} />
-                  <a
-                    href="mailto:info@swl-lawfirm.com.sa"
-                    className="text-xs transition-colors duration-300"
-                    style={{ color: "rgba(255,255,255,0.6)" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#B08D57")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)")}
-                  >
-                    info@swl-lawfirm.com.sa
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Globe size={14} className="flex-shrink-0" style={{ color: "#B08D57" }} />
-                  <a
-                    href="https://www.swl-lawfirm.com.sa"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs transition-colors duration-300"
-                    style={{ color: "rgba(255,255,255,0.6)" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#B08D57")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)")}
-                  >
-                    www.swl-lawfirm.com.sa
-                  </a>
-                </div>
-              </li>
-            </ul>
+        </div>
+        <nav aria-label="روابط أسفل الصفحة"><h3>تعرّف علينا</h3><ul className="footer-links">{quickLinks.map(({ href, label }) => <li key={href}><Link href={href}>{label}</Link></li>)}</ul></nav>
+        <div className="footer-contact">
+          <h3>تواصل معنا</h3>
+          <a href="tel:+966544406986" className="gap-2"><Phone size={15} className="text-gold-light shrink-0" aria-hidden="true" /><span dir="ltr">+966 54 440 6986</span></a>
+          <a href="mailto:info@swl-lawfirm.com.sa" className="footer-email gap-2" aria-label="راسلنا عبر البريد الإلكتروني" title="info@swl-lawfirm.com.sa"><Mail size={15} className="text-gold-light shrink-0" aria-hidden="true" /><span dir="ltr">info@swl-lawfirm.com.sa</span></a>
+        </div>
+        <div className="footer-branches">
+          <h3 className="flex items-center gap-2"><MapPin size={16} className="text-gold-light" aria-hidden="true" />مكاتبنا</h3>
+          <div className="footer-addresses">
+            <div><p className="text-white font-semibold">جدة — المقر الرئيسي</p><p>شارع عبدالله السليمان</p></div>
+            <div><p className="text-white font-semibold">المدينة المنورة</p><p>كورنيش وادي العقيق</p><a href="tel:+966570230900" dir="ltr">+966 57 023 0900</a></div>
           </div>
         </div>
       </div>
-
-      {/* Bottom Bar */}
-      <div style={{ borderTop: "1px solid rgba(176, 141, 87, 0.15)", backgroundColor: "rgba(0,0,0,0.2)" }}>
-        <div className="container mx-auto px-4 md:px-8 py-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <Link 
-              href="/admin/login" 
-              className="text-white/20 hover:text-white/50 transition-colors order-2 md:order-1"
-              title="لوحة التحكم"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            </Link>
-            <p
-              className="text-xs text-center md:text-right w-full order-1 md:order-2"
-              style={{ color: "rgba(255,255,255,0.4)", fontFamily: "Cairo, sans-serif" }}
-            >
-              © {currentYear} شركة سمو الحكمة للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+      <div className="footer-bottom"><p>© {new Date().getFullYear()} سمو الحكمة للمحاماة. جميع الحقوق محفوظة.</p><Link href="/admin/login" className="footer-admin-link" aria-label="لوحة التحكم" title="لوحة التحكم"><LockKeyhole size={14} strokeWidth={1.5} aria-hidden="true" /></Link></div>
+    </div>
+  </footer>;
 }

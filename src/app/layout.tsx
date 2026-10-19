@@ -4,6 +4,7 @@ import "./globals.css";
 import NavbarWrapper from "@/components/layout/NavbarWrapper";
 import FooterWrapper from "@/components/layout/FooterWrapper";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import ScrollObserver from "@/components/layout/ScrollObserver";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -50,8 +51,10 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className={cairo.variable}>
       <body className={`${cairo.className} antialiased`}>
+        <a className="skip-link" href="#main-content">انتقل إلى المحتوى</a>
+        <ScrollObserver />
         <NavbarWrapper />
-        <main>{children}</main>
+        <main id="main-content" tabIndex={-1}>{children}</main>
         <FooterWrapper />
         <WhatsAppButton />
       </body>

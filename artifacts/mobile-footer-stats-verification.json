@@ -1,0 +1,86 @@
+{
+  "checks": [
+    {
+      "branchesVisible": false,
+      "footerHeight": 176.8000030517578,
+      "itemsOverflow": false,
+      "navVisible": false,
+      "overflow": false,
+      "sameRow": true,
+      "valueColor": "rgb(27, 43, 75)",
+      "width": 320
+    },
+    {
+      "branchesVisible": false,
+      "footerHeight": 176.8000030517578,
+      "itemsOverflow": false,
+      "navVisible": false,
+      "overflow": false,
+      "sameRow": true,
+      "valueColor": "rgb(27, 43, 75)",
+      "width": 390
+    },
+    {
+      "branchesVisible": false,
+      "footerHeight": 176.8000030517578,
+      "itemsOverflow": false,
+      "navVisible": false,
+      "overflow": false,
+      "sameRow": true,
+      "valueColor": "rgb(27, 43, 75)",
+      "width": 767
+    },
+    {
+      "branchesVisible": true,
+      "footerHeight": 496,
+      "itemsOverflow": false,
+      "navVisible": true,
+      "overflow": false,
+      "sameRow": true,
+      "valueColor": "rgb(27, 43, 75)",
+      "width": 768
+    },
+    {
+      "branchesVisible": true,
+      "footerHeight": 305,
+      "itemsOverflow": false,
+      "navVisible": true,
+      "overflow": false,
+      "sameRow": true,
+      "valueColor": "rgb(27, 43, 75)",
+      "width": 1280
+    }
+  ],
+  "counterSamples": [
+    [
+      "12+",
+      "4",
+      "2"
+    ],
+    [
+      "0+",
+      "0",
+      "0"
+    ],
+    [
+      "3+",
+      "1",
+      "0"
+    ],
+    [
+      "7+",
+      "2",
+      "1"
+    ],
+    [
+      "10+",
+      "3",
+      "1"
+    ],
+    [
+      "11+",
+      "3",
+      "1"
+    ]
+  ]
+}

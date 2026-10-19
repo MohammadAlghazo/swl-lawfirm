@@ -1,0 +1,15 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import vm from "node:vm";
+import test from "node:test";
+import ts from "typescript";
+const require = createRequire(import.meta.url);
+const exports = {};
+const source = readFileSync(new URL("../src/lib/article-html.ts", import.meta.url), "utf8");
+vm.runInNewContext(ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true } }).outputText, { exports, require });
+const clean = exports.sanitizeArticleHtml;
+test("article markup removes scripts, event handlers and unsafe links", () => { const value = clean('<p onclick="alert(1)">نص قانوني</p><script>alert(1)</script><img src="/images/hero-bg.jpg" onerror="alert(1)"><a href="javascript:alert(1)">رابط</a>'); assert.ok(value.includes("نص قانوني")); assert.ok(!/onclick|onerror|<script|javascript:/.test(value)); });
+test("article markup preserves headings, lists and safe images", () => { const value = clean('<h2>عنوان</h2><ol><li><strong>تفصيل</strong></li></ol><img src="https://example.com/image.jpg" alt="توضيح">'); assert.ok(value.includes('<h2>عنوان</h2>')); assert.ok(value.includes('<strong>تفصيل</strong>')); assert.ok(value.includes('src="https://example.com/image.jpg"')); });
+test("article markup keeps a single page h1 and repairs incomplete closing markup", () => { const value = clean('<h1>عنوان فرعي</h1><p>فقرة</'); assert.ok(!value.includes('<h1>')); assert.ok(value.includes('<h2>عنوان فرعي</h2>')); assert.ok(!value.endsWith('</')); });
+test("article markup keeps Quill alignment while rejecting layout injection classes", () => { const value = clean('<p class="ql-align-center fixed inset-0" style="position:fixed;text-align:center">فقرة</p>'); assert.ok(value.includes('ql-align-center')); assert.ok(value.includes('text-align:center')); assert.ok(!value.includes('position')); assert.ok(!value.includes('inset-0')); });

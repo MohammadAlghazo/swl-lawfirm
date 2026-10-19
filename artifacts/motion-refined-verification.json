@@ -1,0 +1,57 @@
+{
+  "repeatSamples": [
+    {
+      "opacity": "0",
+      "state": "ready",
+      "translate": "none"
+    },
+    {
+      "opacity": "0",
+      "state": "ready",
+      "translate": "none"
+    },
+    {
+      "opacity": "0",
+      "state": "ready",
+      "translate": "none"
+    },
+    {
+      "opacity": "0",
+      "state": "ready",
+      "translate": "none"
+    },
+    {
+      "opacity": "0",
+      "state": "ready",
+      "translate": "none"
+    },
+    {
+      "opacity": "0",
+      "state": "ready",
+      "translate": "none"
+    },
+    {
+      "opacity": "0",
+      "state": "ready",
+      "translate": "none"
+    },
+    {
+      "opacity": "0.0030412",
+      "state": "running",
+      "translate": "0px 31.6301px"
+    }
+  ],
+  "buttonHover": {
+    "translateY": -2,
+    "arrowTranslateX": -4
+  },
+  "systemReducedMotion": true,
+  "explicitSitePreference": "full",
+  "mobileMenu": {
+    "viewport": "320x568",
+    "panelHeight": 508,
+    "panelScrollHeight": 616,
+    "focusTrapped": true,
+    "escapeRestoresFocus": true
+  }
+}

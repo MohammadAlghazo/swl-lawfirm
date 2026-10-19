@@ -1,182 +1,180 @@
+import { withPageMetadata } from "@/lib/metadata";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import Image from "next/image";
+import ArticleImage from "@/components/blog/ArticleImage";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft, Calendar, ArrowLeft, BookOpen } from "lucide-react";
 
 export const revalidate = 60;
 
-export const metadata = {
-  title: "المركز الإعلامي والمقالات",
-  description: "أحدث المقالات والأخبار القانونية من شركة سمو الحكمة للمحاماة والاستشارات القانونية",
+const metadata = {
+  title: "المركز الإعلامي",
+  description: "أحدث المقالات والدراسات القانونية والتحليلات النظامية المعتمدة من شركة سمو الحكمة للمحاماة والاستشارات القانونية",
 };
 
 interface BlogPageProps {
-  searchParams?: {
+  searchParams?: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const pageParam = searchParams?.page;
-  const currentPage = Math.max(1, parseInt(pageParam || "1", 10) || 1);
-  const pageSize = 6;
+  const pageParam = (await searchParams)?.page;
+  const currentPage = Math.max(1, Math.min(Number.parseInt(pageParam || "1", 10) || 1, 1000000));
+  const pageSize = 6; // 3 columns x 2 rows = 6 items per page
 
-  const totalArticles = await prisma.article.count({
-    where: { published: true },
-  });
+  let unavailable = false;
+  let totalArticles = 0;
+  let articles: Array<{
+    id: number;
+    slug: string;
+    title: string;
+    excerpt: string | null;
+    coverImage: string | null;
+    createdAt: Date;
+  }> = [];
+
+  try {
+    totalArticles = await prisma.article.count({
+      where: { published: true },
+    });
+
+    const totalPagesCalculated = Math.max(1, Math.ceil(totalArticles / pageSize));
+    const safeCurrentPage = Math.min(currentPage, totalPagesCalculated);
+
+    articles = await prisma.article.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+      skip: (safeCurrentPage - 1) * pageSize,
+      take: pageSize,
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        excerpt: true,
+        coverImage: true,
+        createdAt: true,
+      },
+    });
+  } catch {
+    unavailable = true;
+  }
 
   const totalPages = Math.max(1, Math.ceil(totalArticles / pageSize));
   const safeCurrentPage = Math.min(currentPage, totalPages);
 
-  const articles = await prisma.article.findMany({
-    where: {
-      published: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    skip: (safeCurrentPage - 1) * pageSize,
-    take: pageSize,
-  });
-
   return (
-    <div className="bg-cream min-h-screen pt-36 pb-24">
+    <div className="bg-[#F9F7F4] min-h-screen pt-28 md:pt-36 pb-20">
       <div className="container-custom">
         {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-gold/15 text-gold-dark text-xs font-bold mb-3 border border-gold/30">
-            الثقافة العدلية والأخبار
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-navy mb-4 font-cairo">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 md:w-12 bg-[#B08D57]" />
+            <span className="text-xs md:text-sm font-semibold tracking-widest text-[#B08D57] uppercase">
+              المقالات والتحليلات النظامية
+            </span>
+            <div className="h-px w-8 md:w-12 bg-[#B08D57]" />
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#34495D] mb-3 leading-tight">
             المركز الإعلامي
           </h1>
-          <div className="w-20 h-1 bg-gold mx-auto mb-6 rounded-full"></div>
-          <p className="text-base md:text-lg text-gray-600 leading-relaxed font-cairo">
+          <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-2xl mx-auto px-2">
             اطلع على أحدث المقالات القانونية والتحليلات النظامية والنصائح العدلية المعتمدة بقلم نخبة المستشارين في شركة سمو الحكمة.
           </p>
         </div>
 
         {articles.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm max-w-xl mx-auto">
-            <div className="text-gold text-5xl mb-4">⚖️</div>
-            <h3 className="text-2xl font-bold text-navy mb-2">قريباً جداً</h3>
+          <div className="text-center py-16 bg-white rounded-2xl border border-gray-100 shadow-sm max-w-lg mx-auto p-6">
+            <BookOpen className="w-12 h-12 text-[#B08D57] mx-auto mb-3" />
+            <h3 className="text-xl font-bold text-[#34495D] mb-2">{unavailable ? "تعذر تحميل المقالات" : "المقالات قريباً"}</h3>
             <p className="text-gray-500 text-sm">
-              نعمل حالياً على نشر مقالات ودراسات قانونية قيمة، يرجى العودة لاحقاً.
+              {unavailable ? "يرجى المحاولة لاحقاً، أو التواصل مع فريقنا." : "لا توجد مقالات منشورة حالياً. يمكنك التواصل مع فريقنا لمناقشة استفسارك."}
             </p>
+            <Link href="/contact" className="service-request">تواصل معنا <ArrowLeft size={16} /></Link>
           </div>
         ) : (
           <>
-            {/* Articles Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {/* ── 3 Articles per row across 2 rows (6 items per page) ── */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7 mb-12">
               {articles.map((article) => (
                 <Link
                   href={`/blog/${article.slug}`}
                   key={article.id}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 flex flex-col hover:-translate-y-1"
+                  className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#B08D57]/30 transition-all duration-300 flex flex-col hover:-translate-y-1"
                 >
-                  <div className="relative h-60 overflow-hidden bg-navy">
+                  <div className="relative h-52 sm:h-56 overflow-hidden bg-[#34495D]">
                     {article.coverImage ? (
-                      <Image
-                        src={article.coverImage}
-                        alt={article.title}
-                        fill
-                        unoptimized
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                      <ArticleImage src={article.coverImage} alt={article.title} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-white/20">
-                        <svg
-                          className="w-16 h-16 text-gold/40"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                          />
-                        </svg>
+                      <div className="w-full h-full flex items-center justify-center text-[#B08D57]/30">
+                        <BookOpen className="w-14 h-14" />
                       </div>
                     )}
-                    <div className="absolute top-4 right-4 bg-navy/80 backdrop-blur-sm text-gold border border-gold/30 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                    <div className="absolute top-3.5 right-3.5 bg-[#34495D]/85 backdrop-blur-sm text-[#C9A96E] text-[11px] font-semibold px-2.5 py-1 rounded-md border border-[#B08D57]/30 shadow-sm">
                       مقال قانوني
                     </div>
                   </div>
 
-                  <div className="p-7 flex-1 flex flex-col">
-                    <div className="flex items-center text-xs text-gray-500 mb-3 gap-2">
-                      <svg
-                        className="w-4 h-4 text-gold"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
+                  <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                    <div className="flex items-center text-xs text-gray-400 mb-2.5 gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-[#B08D57]" />
                       <span>
                         {format(new Date(article.createdAt), "dd MMMM yyyy", { locale: ar })}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors leading-snug line-clamp-2">
+                    <h2 className="text-base sm:text-lg font-bold text-[#34495D] mb-2.5 group-hover:text-[#B08D57] transition-colors leading-snug">
                       {article.title}
-                    </h3>
+                    </h2>
 
-                    <p className="text-gray-600 mb-6 line-clamp-3 text-sm leading-relaxed">
+                    <p className="text-gray-500 mb-5 text-sm sm:text-base leading-loose line-clamp-3">
                       {article.excerpt || "اضغط لقراءة تفاصيل المقال القانوني كاملاً..."}
                     </p>
 
-                    <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between text-gold font-bold text-sm">
+                    <div className="mt-auto pt-3.5 border-t border-gray-100 flex items-center justify-between text-[#B08D57] font-semibold text-xs sm:text-sm">
                       <span>قراءة المقال</span>
-                      <span className="transform group-hover:-translate-x-1.5 transition-transform duration-300 text-lg">
-                        ←
-                      </span>
+                      <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
 
-            {/* Pagination Controls */}
+            {/* ── Prominent Pagination Controls ── */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 pt-6 border-t border-gray-200">
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-6 border-t border-gray-200">
                 {/* Previous Button */}
                 {safeCurrentPage > 1 ? (
                   <Link
                     href={`/blog?page=${safeCurrentPage - 1}`}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-navy font-bold text-sm hover:border-gold hover:text-gold transition-all shadow-sm"
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-[#34495D] font-bold text-xs sm:text-sm hover:border-[#B08D57] hover:text-[#B08D57] hover:shadow-sm transition-all"
                   >
                     <ChevronRight className="w-4 h-4" />
                     <span>السابق</span>
                   </Link>
                 ) : (
-                  <span className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-100 text-gray-400 font-bold text-sm cursor-not-allowed select-none">
+                  <span className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-100 bg-gray-50 text-gray-300 font-bold text-xs sm:text-sm cursor-not-allowed select-none">
                     <ChevronRight className="w-4 h-4" />
                     <span>السابق</span>
                   </span>
                 )}
 
                 {/* Page Number Buttons */}
-                <div className="flex items-center gap-1.5 mx-2">
+                <div className="flex flex-wrap justify-center items-center gap-1.5 mx-2">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
                     const isActive = pageNum === safeCurrentPage;
                     return (
                       <Link
                         key={pageNum}
                         href={`/blog?page=${pageNum}`}
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all shadow-sm ${
+                        aria-label={`الصفحة ${pageNum}`}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs sm:text-sm font-bold transition-all ${
                           isActive
-                            ? "bg-navy text-gold border-2 border-gold shadow-md"
-                            : "bg-white text-gray-700 hover:bg-gold/10 hover:text-gold hover:border-gold border border-gray-200"
+                            ? "bg-[#34495D] text-[#C9A96E] shadow-sm"
+                            : "bg-white text-gray-600 hover:text-[#34495D] hover:border-[#B08D57]/40 border border-gray-200"
                         }`}
                       >
                         {pageNum}
@@ -189,13 +187,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 {safeCurrentPage < totalPages ? (
                   <Link
                     href={`/blog?page=${safeCurrentPage + 1}`}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-navy font-bold text-sm hover:border-gold hover:text-gold transition-all shadow-sm"
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-[#34495D] font-bold text-xs sm:text-sm hover:border-[#B08D57] hover:text-[#B08D57] hover:shadow-sm transition-all"
                   >
                     <span>التالي</span>
                     <ChevronLeft className="w-4 h-4" />
                   </Link>
                 ) : (
-                  <span className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-100 text-gray-400 font-bold text-sm cursor-not-allowed select-none">
+                  <span className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-gray-100 bg-gray-50 text-gray-300 font-bold text-xs sm:text-sm cursor-not-allowed select-none">
                     <span>التالي</span>
                     <ChevronLeft className="w-4 h-4" />
                   </span>
@@ -208,3 +206,5 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     </div>
   );
 }
+
+export function generateMetadata() { return withPageMetadata(metadata, "/blog"); }

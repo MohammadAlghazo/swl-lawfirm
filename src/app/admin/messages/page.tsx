@@ -17,7 +17,7 @@ export default async function AdminMessagesPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-navy mb-2">رسائل العملاء</h1>
-        <p className="text-gray-600">هنا تظهر جميع الرسائل والاستفسارات المرسلة من صفحة "تواصل معنا"</p>
+        <p className="text-gray-600">هنا تظهر جميع الرسائل والاستفسارات المرسلة من صفحة «تواصل معنا»</p>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">

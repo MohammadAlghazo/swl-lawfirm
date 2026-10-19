@@ -1,14 +1,15 @@
 "use client";
 
+import { validateAdminForm } from "@/lib/form-validation";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Save, Loader2, Image as ImageIcon } from "lucide-react";
-import "react-quill/dist/quill.snow.css";
+import { Save, Loader2, Image as ImageIcon } from "lucide-react";
+import "react-quill-new/dist/quill.snow.css";
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
-export default function ArticleEditor({ initialData }: { initialData?: any }) {
+export default function ArticleEditor({ initialData }: { initialData?: { id: number; title: string; slug: string; excerpt: string | null; content: string; coverImage: string | null; published: boolean } }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,11 +23,15 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
     published: initialData?.published !== undefined ? initialData.published : true,
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading) return;
+    const validationError = validateAdminForm(e, "admin-form-error");
+    if (validationError) { setError(validationError); return; }
     setIsLoading(true);
     setError("");
 
+    if (!formData.content.replace(/<[^>]+>/g, "").trim()) { setError("أدخل محتوى المقال قبل الحفظ"); setIsLoading(false); return; }
     const isEditing = !!initialData;
     const url = isEditing ? `/api/articles/${initialData.id}` : "/api/articles";
     const method = isEditing ? "PUT" : "POST";
@@ -46,8 +51,8 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
 
       router.push("/admin/articles");
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "تعذر حفظ المقال");
       setIsLoading(false);
     }
   };
@@ -73,9 +78,9 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form noValidate onSubmit={handleSubmit} className="space-y-6">
         {error && (
-          <div className="bg-red-50 text-red-500 p-4 rounded-lg text-sm font-medium border border-red-100">
+          <div role="alert" id="admin-form-error" className="bg-red-50 text-red-500 p-4 rounded-lg text-sm font-medium border border-red-100">
             {error}
           </div>
         )}
@@ -121,7 +126,7 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
                   theme="snow" 
                   value={formData.content} 
                   onChange={(content) => setFormData({ ...formData, content })}
-                  className="h-96 mb-12"
+                  className="article-editor"
                   modules={{
                     toolbar: [
                       [{ 'header': [1, 2, 3, false] }],
@@ -212,7 +217,7 @@ export default function ArticleEditor({ initialData }: { initialData?: any }) {
                   rows={4}
                   value={formData.excerpt}
                   onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:ring-2 focus:ring-gold outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm resize-none focus:ring-2 focus:ring-gold outline-none"
                   placeholder="وصف قصير للمقال يظهر في الصفحة الرئيسية..."
                 />
               </div>

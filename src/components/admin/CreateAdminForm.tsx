@@ -1,5 +1,6 @@
 "use client";
 
+import { validateAdminForm } from "@/lib/form-validation";
 import { useState } from "react";
 import { Loader2, UserPlus } from "lucide-react";
 
@@ -14,8 +15,11 @@ export default function CreateAdminForm() {
     password: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading) return;
+    const validationError = validateAdminForm(e, "admin-form-error");
+    if (validationError) { setError(validationError); return; }
     setIsLoading(true);
     setError("");
     setSuccess("");
@@ -35,7 +39,7 @@ export default function CreateAdminForm() {
       } else {
         setError(data.error || "حدث خطأ ما");
       }
-    } catch (err) {
+    } catch {
       setError("تعذر الاتصال بالخادم");
     } finally {
       setIsLoading(false);
@@ -54,15 +58,15 @@ export default function CreateAdminForm() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 space-y-4">
+      <form noValidate onSubmit={handleSubmit} className="p-6 space-y-4">
         {error && (
-          <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100 font-medium">
+          <div role="alert" id="admin-form-error" className="p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100 font-medium">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="p-4 bg-green-50 text-green-600 rounded-lg text-sm border border-green-100 font-medium">
+          <div role="status" className="p-4 bg-green-50 text-green-600 rounded-lg text-sm border border-green-100 font-medium">
             {success}
           </div>
         )}

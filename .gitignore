@@ -11,6 +11,8 @@
 
 # next.js
 /.next/
+/.next-verify/
+/.next-final/
 /out/
 
 # production
@@ -51,3 +53,4 @@ GEMINI.md
 remove-comments.js
 prisma.config.ts
 public/test-crop.html
+public/images/team_backup/

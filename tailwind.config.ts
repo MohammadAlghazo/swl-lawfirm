@@ -10,21 +10,21 @@ const config: Config = {
     extend: {
       colors: {
         navy: {
-          DEFAULT: "#1B2B4B",
-          light: "#243660",
-          dark: "#0F1A2E",
+          DEFAULT: "rgb(var(--color-navy) / <alpha-value>)",
+          light: "rgb(var(--color-navy-light) / <alpha-value>)",
+          dark: "rgb(var(--color-navy-dark) / <alpha-value>)",
           50: "#E8ECF4",
         },
         gold: {
-          DEFAULT: "#B08D57",
-          light: "#C9A96E",
+          DEFAULT: "rgb(var(--color-gold) / <alpha-value>)",
+          light: "rgb(var(--color-gold-light) / <alpha-value>)",
           dark: "#8B6E42",
           50: "#F5EFE4",
         },
-        cream: "#F9F7F4",
+        cream: "rgb(var(--color-cream) / <alpha-value>)",
       },
       fontFamily: {
-        cairo: ["Cairo", "sans-serif"],
+        cairo: ["var(--font-cairo)", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.8s ease-out forwards",

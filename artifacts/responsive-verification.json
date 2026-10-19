@@ -1,0 +1,366 @@
+{
+  "base": "http://localhost:3001",
+  "framework": "Next.js 15.5.28",
+  "results": [
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/about",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/corporate",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/individual",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/team",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/blog",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/contact",
+      "scrollWidth": 310,
+      "viewport": 320,
+      "width": 310
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/about",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/corporate",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/individual",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/team",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/blog",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/contact",
+      "scrollWidth": 380,
+      "viewport": 390,
+      "width": 380
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/about",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/corporate",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/individual",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/team",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/blog",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/contact",
+      "scrollWidth": 758,
+      "viewport": 768,
+      "width": 758
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/about",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/corporate",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/individual",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/team",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/blog",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/contact",
+      "scrollWidth": 1014,
+      "viewport": 1024,
+      "width": 1014
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/about",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/corporate",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/services/individual",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/team",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/blog",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    },
+    {
+      "h1": 1,
+      "main": 1,
+      "overflow": [],
+      "path": "/contact",
+      "scrollWidth": 1270,
+      "viewport": 1280,
+      "width": 1270
+    }
+  ]
+}

@@ -38,9 +38,9 @@ export default function AdminLayout({
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 font-cairo" dir="rtl">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50 font-cairo" dir="rtl">
       {/* Sidebar */}
-      <aside className="w-64 bg-navy text-white flex flex-col fixed inset-y-0 right-0 z-50">
+      <aside className="w-full lg:w-64 bg-navy text-white flex flex-col lg:fixed lg:inset-y-0 lg:right-0 z-40">
         <div className="p-6 border-b border-navy-light flex items-center gap-3">
           <div className="w-10 h-10 rounded-full flex items-center justify-center border-2 border-gold bg-gold/10">
             <span className="text-gold font-bold">S</span>
@@ -51,7 +51,7 @@ export default function AdminLayout({
           </div>
         </div>
 
-        <nav className="flex-1 py-6 px-4 space-y-2 overflow-y-auto">
+        <nav className="flex lg:block flex-wrap lg:flex-1 gap-2 py-4 px-4 lg:space-y-2 lg:overflow-y-auto">
           {menuItems.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             const Icon = item.icon;
@@ -86,9 +86,9 @@ export default function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 mr-64 p-8 min-h-screen">
+      <div className="flex-1 min-w-0 lg:mr-64 p-4 sm:p-8 min-h-screen">
         {children}
-      </main>
+      </div>
     </div>
   );
 }

@@ -1,204 +1,55 @@
 "use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Send, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { AlertCircle, ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 
-type ContactFormData = {
-  name: string;
-  phone: string;
-  email?: string;
-  message: string;
-};
+type ContactFormData = { name: string; phone: string; email: string; message: string };
+const normalizePhone = (value: string) => value.replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit))).replace(/[\s()-]/g, "");
 
 export default function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const successRef = useRef<HTMLDivElement>(null);
+  const { register, handleSubmit, reset, setValue, formState: { errors, isSubmitting } } = useForm<ContactFormData>({ defaultValues: { name: "", phone: "", email: "", message: "" } });
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactFormData>();
+  useEffect(() => {
+    const service = new URLSearchParams(window.location.search).get("service");
+    if (service) setValue("message", `أرغب في الاستفسار عن خدمة: ${service.slice(0, 200)}\n`);
+  }, [setValue]);
+  useEffect(() => { if (status === "success") successRef.current?.focus(); }, [status]);
 
   const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-    setErrorMessage('');
-
+    setStatus("idle");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
+      const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data), signal: controller.signal });
       const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || 'حدث خطأ أثناء إرسال الرسالة.');
-      }
-
-      setSubmitStatus('success');
-      reset(); // Clear the form
-    } catch (error: any) {
-      setSubmitStatus('error');
-      setErrorMessage(error.message || 'حدث خطأ غير متوقع. يرجى المحاولة لاحقاً.');
-    } finally {
-      setIsSubmitting(false);
-    }
+      if (!response.ok) throw new Error(result.error || "تعذر إرسال الرسالة. يرجى المحاولة مجدداً.");
+      reset();
+      setStatus("success");
+    } catch (error) {
+      setErrorMessage(error instanceof Error && error.name !== "AbortError" ? error.message : "تعذر تأكيد وصول الرسالة. تواصل معنا هاتفياً قبل إعادة الإرسال.");
+      setStatus("error");
+    } finally { clearTimeout(timeout); }
   };
 
-  return (
-    <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100 relative overflow-hidden">
-      {/* Decorative accent line */}
-      <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-l from-navy to-gold"></div>
-
-      <div className="mb-8">
-        <h3 className="text-2xl font-bold text-navy mb-2">أرسل لنا رسالة</h3>
-        <p className="text-gray-600 text-sm">
-          قم بتعبئة النموذج أدناه وسيقوم فريقنا القانوني بالتواصل معك في أقرب وقت ممكن.
-        </p>
+  const fieldClass = "w-full px-4 py-3 min-h-12 rounded-md border border-slate-300 bg-white text-navy focus:border-gold transition-colors disabled:opacity-60";
+  return <div className="bg-white rounded-lg border border-navy/15 p-5 sm:p-8" id="contact-form">
+    <h2 className="text-2xl font-bold mb-3">أرسل لنا رسالة</h2>
+    <p className="text-slate-600 text-[15px] leading-loose mb-7">عرّفنا باحتياجك، وسيتواصل معك فريقنا. الحقول المشار إليها بنجمة مطلوبة.</p>
+    {status === "success" ? <div ref={successRef} tabIndex={-1} role="status" className="py-8 text-center">
+      <CheckCircle2 className="w-12 h-12 text-gold-dark mx-auto mb-4" aria-hidden="true" /><h3 className="text-xl font-bold mb-3">وصلتنا رسالتك</h3><p className="text-slate-600 mb-6">شكراً لتواصلك مع سمو الحكمة. سيقوم فريقنا بمراجعة رسالتك والتواصل معك.</p><button type="button" className="btn-navy-outline" onClick={() => setStatus("idle")}>إرسال رسالة أخرى</button>
+    </div> : <form noValidate onSubmit={handleSubmit(onSubmit)} aria-busy={isSubmitting} className="space-y-6">
+      {status === "error" && <div role="alert" className="flex gap-3 text-red-800 bg-red-50 rounded-md p-4"><AlertCircle size={20} className="shrink-0 mt-1" aria-hidden="true" /><p className="text-sm">{errorMessage}</p></div>}
+      <div className="grid sm:grid-cols-2 gap-6">
+        <div><label htmlFor="name" className="block font-semibold text-sm mb-2">الاسم الكريم *</label><input id="name" autoComplete="name" maxLength={120} className={fieldClass} aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} {...register("name", { required: "أدخل اسمك الكريم", validate: value => !!value.trim() || "أدخل اسمك الكريم" })} />{errors.name && <p id="name-error" className="text-red-700 text-sm mt-2">{errors.name.message}</p>}</div>
+        <div><label htmlFor="phone" className="block font-semibold text-sm mb-2">رقم الجوال *</label><input id="phone" type="tel" inputMode="tel" dir="ltr" autoComplete="tel" maxLength={24} placeholder="05xxxxxxxx" className={fieldClass} aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "phone-error" : undefined} {...register("phone", { setValueAs: normalizePhone, required: "أدخل رقم جوالك", pattern: { value: /^\+?[0-9]{9,15}$/, message: "أدخل رقم جوال صحيحاً، مع رمز الدولة عند الحاجة" } })} />{errors.phone && <p id="phone-error" className="text-red-700 text-sm mt-2">{errors.phone.message}</p>}</div>
       </div>
-
-      {submitStatus === 'success' ? (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center animate-fade-in-up">
-          <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h4 className="text-xl font-bold text-green-800 mb-2">تم الإرسال بنجاح!</h4>
-          <p className="text-green-700 mb-6">
-            شكراً لتواصلك مع شركة سمو الحكمة. لقد استلمنا رسالتك وسنقوم بالرد عليك في أقرب وقت.
-          </p>
-          <button
-            onClick={() => setSubmitStatus('idle')}
-            className="text-navy font-bold hover:text-gold-dark transition-colors"
-          >
-            إرسال رسالة أخرى
-          </button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-
-          {submitStatus === 'error' && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-              <p className="text-sm">{errorMessage}</p>
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Name Field */}
-            <div className="space-y-2">
-              <label htmlFor="name" className="block text-sm font-bold text-navy">
-                الاسم الكريم <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="أدخل اسمك الكامل"
-                className={`w-full px-4 py-3 rounded-lg border focus:ring-2 focus:outline-none transition-all ${
-                  errors.name 
-                    ? 'border-red-300 focus:ring-red-200 bg-red-50' 
-                    : 'border-gray-200 focus:border-gold focus:ring-gold/20 bg-gray-50 focus:bg-white'
-                }`}
-                {...register('name', { required: 'الاسم مطلوب' })}
-              />
-              {errors.name && <p className="text-red-500 text-xs font-bold mt-1">{errors.name.message}</p>}
-            </div>
-
-            {/* Phone Field */}
-            <div className="space-y-2">
-              <label htmlFor="phone" className="block text-sm font-bold text-navy">
-                رقم الجوال <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                placeholder="مثال: 0500000000"
-                className={`w-full px-4 py-3 rounded-lg border focus:ring-2 focus:outline-none transition-all ${
-                  errors.phone 
-                    ? 'border-red-300 focus:ring-red-200 bg-red-50' 
-                    : 'border-gray-200 focus:border-gold focus:ring-gold/20 bg-gray-50 focus:bg-white'
-                }`}
-                {...register('phone', { 
-                  required: 'رقم الجوال مطلوب',
-                  pattern: {
-                    value: /^[0-9+]{9,14}$/,
-                    message: 'الرجاء إدخال رقم جوال صحيح'
-                  }
-                })}
-              />
-              {errors.phone && <p className="text-red-500 text-xs font-bold mt-1">{errors.phone.message}</p>}
-            </div>
-          </div>
-
-          {/* Email Field */}
-          <div className="space-y-2">
-            <label htmlFor="email" className="block text-sm font-bold text-navy">
-              البريد الإلكتروني <span className="text-gray-400 font-normal text-xs">(اختياري)</span>
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="example@domain.com"
-              className={`w-full px-4 py-3 rounded-lg border focus:ring-2 focus:outline-none transition-all ${
-                errors.email 
-                  ? 'border-red-300 focus:ring-red-200 bg-red-50' 
-                  : 'border-gray-200 focus:border-gold focus:ring-gold/20 bg-gray-50 focus:bg-white'
-              }`}
-              {...register('email', { 
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'الرجاء إدخال بريد إلكتروني صحيح'
-                }
-              })}
-            />
-            {errors.email && <p className="text-red-500 text-xs font-bold mt-1">{errors.email.message}</p>}
-          </div>
-
-          {/* Message Field */}
-          <div className="space-y-2">
-            <label htmlFor="message" className="block text-sm font-bold text-navy">
-              تفاصيل الاستشارة أو الرسالة <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              id="message"
-              rows={5}
-              placeholder="اكتب تفاصيل استشارتك أو رسالتك هنا..."
-              className={`w-full px-4 py-3 rounded-lg border focus:ring-2 focus:outline-none transition-all resize-y ${
-                errors.message 
-                  ? 'border-red-300 focus:ring-red-200 bg-red-50' 
-                  : 'border-gray-200 focus:border-gold focus:ring-gold/20 bg-gray-50 focus:bg-white'
-              }`}
-              {...register('message', { required: 'الرسالة مطلوبة', minLength: { value: 10, message: 'يجب أن تحتوي الرسالة على 10 أحرف على الأقل' } })}
-            ></textarea>
-            {errors.message && <p className="text-red-500 text-xs font-bold mt-1">{errors.message.message}</p>}
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-navy text-white font-bold py-4 px-6 rounded-lg hover:bg-navy-dark transition-colors flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gold translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
-            <span className="relative z-10 flex items-center gap-2">
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  جاري الإرسال...
-                </>
-              ) : (
-                <>
-                  إرسال الرسالة الآن
-                  <Send className="w-5 h-5 rotate-180" />
-                </>
-              )}
-            </span>
-          </button>
-        </form>
-      )}
-    </div>
-  );
+      <div><label htmlFor="email" className="block font-semibold text-sm mb-2">البريد الإلكتروني <span className="text-slate-500 font-normal">(اختياري)</span></label><input id="email" type="email" dir="ltr" autoComplete="email" maxLength={254} placeholder="name@example.com" className={fieldClass} aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} {...register("email", { setValueAs: (value: string) => value.trim(), pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "أدخل بريداً إلكترونياً صحيحاً" } })} />{errors.email && <p id="email-error" className="text-red-700 text-sm mt-2">{errors.email.message}</p>}</div>
+      <div><label htmlFor="message" className="block font-semibold text-sm mb-2">تفاصيل الرسالة *</label><textarea id="message" rows={6} maxLength={5000} className={`${fieldClass} resize-none`} aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} {...register("message", { required: "اكتب موضوع رسالتك", validate: value => value.trim().length >= 10 || "أضف تفاصيل أكثر؛ ١٠ أحرف على الأقل" })} />{errors.message && <p id="message-error" className="text-red-700 text-sm mt-2">{errors.message.message}</p>}</div>
+      <button type="submit" disabled={isSubmitting} className="btn-gold w-full disabled:opacity-60 disabled:transform-none"><span className="min-w-36 text-center">{isSubmitting ? "جارٍ إرسال الرسالة…" : "إرسال الرسالة"}</span>{isSubmitting ? <Loader2 size={18} className="animate-spin" aria-hidden="true" /> : <ArrowLeft size={18} aria-hidden="true" />}</button>
+    </form>}
+  </div>;
 }

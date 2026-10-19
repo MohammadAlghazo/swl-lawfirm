@@ -1,5 +1,6 @@
 "use client";
 
+import { validateAdminForm } from "@/lib/form-validation";
 import { useState } from "react";
 import { Loader2, KeyRound } from "lucide-react";
 
@@ -14,8 +15,11 @@ export default function ChangePasswordForm() {
     confirmPassword: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading) return;
+    const validationError = validateAdminForm(e, "admin-form-error");
+    if (validationError) { setError(validationError); return; }
     setIsLoading(true);
     setError("");
     setSuccess("");
@@ -44,7 +48,7 @@ export default function ChangePasswordForm() {
       } else {
         setError(data.error || "حدث خطأ ما");
       }
-    } catch (err) {
+    } catch {
       setError("تعذر الاتصال بالخادم");
     } finally {
       setIsLoading(false);
@@ -54,7 +58,7 @@ export default function ChangePasswordForm() {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="border-b border-gray-100 p-6 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+        <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold-dark">
           <KeyRound className="w-5 h-5" />
         </div>
         <div>
@@ -63,15 +67,15 @@ export default function ChangePasswordForm() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 space-y-4">
+      <form noValidate onSubmit={handleSubmit} className="p-6 space-y-4">
         {error && (
-          <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100 font-medium">
+          <div role="alert" id="admin-form-error" className="p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100 font-medium">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="p-4 bg-green-50 text-green-600 rounded-lg text-sm border border-green-100 font-medium">
+          <div role="status" className="p-4 bg-green-50 text-green-600 rounded-lg text-sm border border-green-100 font-medium">
             {success}
           </div>
         )}

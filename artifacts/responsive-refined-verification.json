@@ -1,0 +1,456 @@
+{
+  "base": "http://localhost:3001",
+  "next": "15.5.28",
+  "results": [
+    {
+      "route": "/",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": true,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/corporate",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/individual",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/team",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog/commercial-franchise-agreements-regulations-saudi",
+      "width": 320,
+      "height": 568,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": true,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/corporate",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/individual",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/team",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog/commercial-franchise-agreements-regulations-saudi",
+      "width": 390,
+      "height": 844,
+      "h1": 1,
+      "header": 60,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": true,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/corporate",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/individual",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/team",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog/commercial-franchise-agreements-regulations-saudi",
+      "width": 768,
+      "height": 1024,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": true,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/corporate",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/individual",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/team",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog/commercial-franchise-agreements-regulations-saudi",
+      "width": 1024,
+      "height": 768,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": true,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/corporate",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/services/individual",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/team",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    },
+    {
+      "route": "/blog/commercial-franchise-agreements-regulations-saudi",
+      "width": 1280,
+      "height": 900,
+      "h1": 1,
+      "header": 64,
+      "heroFits": null,
+      "main": 1,
+      "overflow": false
+    }
+  ]
+}

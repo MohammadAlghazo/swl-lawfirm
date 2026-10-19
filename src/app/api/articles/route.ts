@@ -1,3 +1,4 @@
+import { sanitizeArticleHtml } from "@/lib/article-html";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
 
     const { title, slug, excerpt, content, coverImage, published } = await request.json();
 
-    if (!title || !slug || !content) {
+    if (typeof title !== "string" || !title.trim() || typeof slug !== "string" || !/^[\p{L}\p{N}_-]+$/u.test(slug) || typeof content !== "string" || !content.trim()) {
       return NextResponse.json({ error: "يرجى تعبئة جميع الحقول المطلوبة" }, { status: 400 });
     }
 
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
         title,
         slug,
         excerpt,
-        content,
+        content: sanitizeArticleHtml(content),
         coverImage: coverImage || null,
         published,
       }
