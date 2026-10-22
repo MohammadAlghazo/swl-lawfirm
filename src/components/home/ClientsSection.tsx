@@ -15,7 +15,7 @@ export default function ClientsSection() {
       logo: "/images/clients/khabeer.png",
     },
     {
-      name: "السباكة الوطنية للمقاولات",
+      name: "ناشونال كاستينق للمقاولات",
       enName: "National Casting",
       logo: "/images/clients/national-casting.png",
     },
