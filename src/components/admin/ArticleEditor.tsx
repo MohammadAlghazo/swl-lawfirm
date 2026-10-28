@@ -1,10 +1,21 @@
 "use client";
 
 import { validateAdminForm } from "@/lib/form-validation";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { Save, Loader2, Image as ImageIcon } from "lucide-react";
+import {
+  Save,
+  Loader2,
+  Image as ImageIcon,
+  UploadCloud,
+  Trash2,
+  CheckCircle2,
+  AlertCircle,
+  Link as LinkIcon,
+  RefreshCw,
+} from "lucide-react";
+import { compressImageOnClient, formatBytes } from "@/lib/image-compression";
 import "react-quill-new/dist/quill.snow.css";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
@@ -13,6 +24,17 @@ export default function ArticleEditor({ initialData }: { initialData?: { id: num
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgressText, setUploadProgressText] = useState("");
+  const [compressionStats, setCompressionStats] = useState<{
+    original: string;
+    compressed: string;
+    savings: number;
+  } | null>(null);
+  const [uploadError, setUploadError] = useState("");
+  const [showManualUrl, setShowManualUrl] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     title: initialData?.title || "",
@@ -74,6 +96,87 @@ export default function ArticleEditor({ initialData }: { initialData?: { id: num
         ? generateSlug(title) 
         : formData.slug
     });
+  };
+
+  const handleImageFile = async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      setUploadError("يرجى اختيار ملف صورة صالح (JPEG, PNG, WebP, AVIF).");
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError("");
+    setCompressionStats(null);
+    setUploadProgressText("جاري تحسين وضغط الصورة...");
+
+    try {
+      const compression = await compressImageOnClient(file, 1400, 900, 0.82);
+      setCompressionStats({
+        original: formatBytes(compression.originalSize),
+        compressed: formatBytes(compression.compressedSize),
+        savings: compression.savingsPercent,
+      });
+
+      setUploadProgressText("جاري رفع وحفظ الصورة...");
+
+      const uploadBody = new FormData();
+      uploadBody.append("file", compression.file);
+
+      const response = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: uploadBody,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "فشل رفع الصورة");
+      }
+
+      setFormData((prev) => ({ ...prev, coverImage: data.url }));
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "تعذر رفع ومعالجة الصورة");
+    } finally {
+      setIsUploading(false);
+      setUploadProgressText("");
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleImageFile(file);
+    }
+    e.target.value = "";
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      handleImageFile(file);
+    }
+  };
+
+  const handleManualUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setFormData((prev) => ({ ...prev, coverImage: val }));
+    if (val.includes("drive.google.com")) {
+      setUploadError("تنبيه: روابط جوجل درايف غير مدعومة مباشرة في المتصفح؛ يرجى رفع ملف الصورة من جهازك بالأعلى للحصول على أفضل سرعة ودقة.");
+    } else {
+      setUploadError("");
+    }
   };
 
   return (
@@ -179,34 +282,144 @@ export default function ArticleEditor({ initialData }: { initialData?: { id: num
               <h3 className="font-bold text-navy mb-4">صورة المقال</h3>
 
               <div className="space-y-4">
-                <div>
-                  <label className="block text-sm text-gray-700 mb-2">رابط الصورة (URL)</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                      <ImageIcon className="h-4 w-4 text-gray-400" />
-                    </div>
-                    <input
-                      type="url"
-                      value={formData.coverImage}
-                      onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-                      className="w-full rounded-lg border border-gray-300 py-2 pl-3 pr-10 text-sm focus:ring-2 focus:ring-gold outline-none"
-                      placeholder="https://..."
-                      dir="ltr"
-                    />
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">مؤقتاً، يرجى إدخال رابط صورة مباشرة</p>
-                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
 
-                {formData.coverImage && (
-                  <div className="mt-4 rounded-lg overflow-hidden border border-gray-200 aspect-video relative bg-gray-200">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src={formData.coverImage} 
-                      alt="Preview" 
-                      className="object-cover w-full h-full"
-                    />
+                {formData.coverImage ? (
+                  <div className="space-y-3">
+                    <div className="relative rounded-xl overflow-hidden border border-gray-200 aspect-video bg-gray-100 group">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={formData.coverImage}
+                        alt="معاينة صورة المقال"
+                        className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => fileInputRef.current?.click()}
+                          disabled={isUploading}
+                          className="px-3.5 py-2 rounded-lg bg-white/95 text-navy text-xs font-bold shadow-sm hover:bg-white transition-all flex items-center gap-1.5 active:scale-95"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5" />
+                          <span>تغيير الصورة</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormData((prev) => ({ ...prev, coverImage: "" }));
+                            setCompressionStats(null);
+                          }}
+                          disabled={isUploading}
+                          className="px-3.5 py-2 rounded-lg bg-red-600 text-white text-xs font-bold shadow-sm hover:bg-red-700 transition-all flex items-center gap-1.5 active:scale-95"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>إزالة</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {compressionStats && (
+                      <div className="text-xs p-2.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-100 flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>
+                          تم تحسين الصورة: خفض الحجم بنسبة {compressionStats.savings}% ({compressionStats.original} ⬅ {compressionStats.compressed})
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => !isUploading && fileInputRef.current?.click()}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          fileInputRef.current?.click();
+                        }
+                      }}
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200 flex flex-col items-center justify-center gap-2.5 ${
+                        isDragging
+                          ? "border-[#B08D57] bg-[#B08D57]/5 scale-[0.99]"
+                          : "border-gray-300 hover:border-[#B08D57] bg-white hover:bg-gray-50/50"
+                      } ${isUploading ? "opacity-75 pointer-events-none" : ""}`}
+                    >
+                      {isUploading ? (
+                        <>
+                          <Loader2 className="w-8 h-8 text-[#B08D57] animate-spin" />
+                          <p className="text-sm font-bold text-navy">{uploadProgressText}</p>
+                          <p className="text-xs text-gray-400">جاري المعالجة بدون التأثير على جودة العرض...</p>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-[#B08D57] border border-gray-100">
+                            <UploadCloud className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-navy">
+                              اضغط لاختيار صورة من جهازك
+                            </p>
+                            <p className="text-xs text-gray-400 mt-1">
+                              أو اسحب ملف الصورة وأفلته هنا
+                            </p>
+                          </div>
+                          <p className="text-[11px] text-gray-400">
+                            يتم ضغط الصورة تلقائياً وتحويلها لصيغة WebP فائقة السرعة
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </div>
                 )}
+
+                {uploadError && (
+                  <div className="text-xs p-3 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
+                    <span className="leading-relaxed">{uploadError}</span>
+                  </div>
+                )}
+
+                <div className="pt-2 border-t border-gray-200/60">
+                  <button
+                    type="button"
+                    onClick={() => setShowManualUrl(!showManualUrl)}
+                    className="text-xs text-gray-500 hover:text-navy transition-colors flex items-center gap-1.5"
+                  >
+                    <LinkIcon className="w-3.5 h-3.5" />
+                    <span>{showManualUrl ? "إخفاء الرابط الخارجي" : "أو إدخال رابط صورة يدوي"}</span>
+                  </button>
+
+                  {showManualUrl && (
+                    <div className="mt-3">
+                      <div className="relative">
+                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                          <ImageIcon className="h-4 w-4 text-gray-400" />
+                        </div>
+                        <input
+                          type="url"
+                          value={formData.coverImage}
+                          onChange={handleManualUrlChange}
+                          className="w-full rounded-lg border border-gray-300 py-2 pl-3 pr-10 text-xs focus:ring-2 focus:ring-gold outline-none"
+                          placeholder="https://..."
+                          dir="ltr"
+                        />
+                      </div>
+                      <p className="text-[11px] text-gray-400 mt-1.5">
+                        لأفضل سرعة للموقع، نوصي برفع الصورة مباشرة من جهازك بالأعلى.
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
